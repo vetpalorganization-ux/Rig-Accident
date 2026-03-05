@@ -1,313 +1,211 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
+import TrustBadges from './TrustBadges';
 
 export default function LeadForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    state: "",
-    accident_type: "",
-    description: "",
-    agreed: false,
-    // Multi-step additions
-    accident_location: "",
-    accident_date: "",
-    is_injured: "",
-    role: "",
-    is_commercial: "",
-    emergency_services: "",
+    name: '',
+    phone: '',
+    email: '',
+    state: '',
+    accident_type: 'Truck/18-Wheeler',
+    description: '',
+    honeypot: '', // Anti-spam
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (step < 3) {
+    
+    // Check honeypot
+    if (formData.honeypot) {
+      console.warn('Bot detected via honeypot');
+      return;
+    }
+
+    if (step < 2) {
       setStep(step + 1);
       return;
     }
     
-    setStatus("loading");
+    setStatus('loading');
 
     try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           timestamp: new Date().toISOString(),
-          source: "rigaccident.com",
+          source: 'form',
         }),
       });
 
       if (response.ok) {
-        setStatus("success");
-        // Track form completion
-        console.log("form_completed");
+        setStatus('success');
+        trackEvent('form_submitted');
       } else {
-        setStatus("error");
+        setStatus('error');
       }
     } catch (error) {
-      console.error("Form submission error:", error);
-      setStatus("error");
+      console.error('Form submission error:', error);
+      setStatus('error');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    const val = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
-    setFormData((prev) => ({ ...prev, [name]: val }));
-    
-    // Track form start on first interaction
-    if (step === 1 && !formData.accident_location) {
-        console.log("form_started");
-    }
-  };
-
-  const setRadioValue = (name: string, value: string) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (status === "success") {
+  if (status === 'success') {
     return (
-      <div className="bg-white p-8 rounded-lg shadow-xl text-center border-t-4 border-accent">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl text-center border border-gray-100">
+        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg className="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-headline text-primary mb-4">Request Received!</h3>
-        <p className="text-gray-600 mb-6">Your case review is being prioritized. An attorney will contact you shortly at <strong>{formData.phone}</strong>.</p>
-        <div className="text-sm text-gray-400 italic">Keep your phone nearby for a 100% free consultation.</div>
+        <h3 className="text-3xl font-bold text-primary mb-4">Request Received!</h3>
+        <p className="text-gray-600 mb-6 text-lg">Our system is matching you with an experienced truck accident lawyer. They will contact you shortly for your 100% free and confidential consultation.</p>
+        <div className="text-sm text-gray-400 italic font-medium uppercase tracking-wider">Keep your phone nearby.</div>
       </div>
     );
   }
 
   return (
-    <div id="lead-form" className="bg-white rounded-lg shadow-2xl overflow-hidden border-t-4 border-accent">
+    <div id="lead-form" className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+      {/* Header */}
+      <div className="bg-primary p-6 text-white">
+        <h3 className="text-2xl font-bold mb-2">Get Matched with a Truck Accident Lawyer</h3>
+        <p className="text-white/70 text-sm">Our system connects accident victims with experienced truck accident attorneys. Your consultation is free and confidential.</p>
+      </div>
+
       {/* Progress Bar */}
-      <div className="bg-gray-100 h-2 w-full flex">
+      <div className="bg-gray-100 h-1.5 w-full flex">
         <div 
           className="bg-accent h-full transition-all duration-500 ease-out" 
-          style={{ width: `${(step / 3) * 100}%` }} 
+          style={{ width: `${(step / 2) * 100}%` }} 
         />
       </div>
 
-      <div className="p-8">
-        <div className="mb-6">
-            <h3 className="text-2xl font-headline text-primary mb-2">Get Your Free Case Evaluation</h3>
-            <p className="text-sm text-gray-500">Step {step} of 3</p>
+      <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        {/* Honeypot Field (Hidden) */}
+        <div className="hidden">
+          <input 
+            type="text" 
+            name="honeypot" 
+            value={formData.honeypot} 
+            onChange={handleChange} 
+            tabIndex={-1} 
+            autoComplete="off" 
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {step === 1 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">Where did the accident happen? (State)</label>
-                <input
-                  required
-                  type="text"
-                  name="accident_location"
-                  value={formData.accident_location}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent outline-none"
-                  placeholder="e.g. Texas, Louisiana, etc."
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">When did the accident occur?</label>
-                <select
-                  required
-                  name="accident_date"
-                  value={formData.accident_date}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent outline-none"
-                >
-                  <option value="">Select time period...</option>
-                  <option value="last-24-hours">Within last 24 hours</option>
-                  <option value="last-week">Within last week</option>
-                  <option value="last-month">Within last month</option>
-                  <option value="last-year">Within last year</option>
-                  <option value="more-than-year">More than a year ago</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">Were you or a loved one injured?</label>
-                <div className="grid grid-cols-2 gap-4">
-                  {['Yes', 'No'].map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setRadioValue('is_injured', option)}
-                      className={`py-3 px-4 rounded-md border font-bold transition ${
-                        formData.is_injured === option 
-                        ? 'bg-primary text-white border-primary' 
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-accent'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
+        {step === 1 ? (
+          <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+            <div>
+              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">What state did the accident happen in?</label>
+              <input 
+                required
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="e.g. Texas, Florida..."
+                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+              />
             </div>
-          )}
-
-          {step === 2 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">Were you the driver or passenger?</label>
-                <div className="grid grid-cols-2 gap-4">
-                  {['Driver', 'Passenger'].map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setRadioValue('role', option)}
-                      className={`py-3 px-4 rounded-md border font-bold transition ${
-                        formData.role === option 
-                        ? 'bg-primary text-white border-primary' 
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-accent'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">Was a commercial truck/rig involved?</label>
-                <div className="grid grid-cols-2 gap-4">
-                  {['Yes', 'No'].map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setRadioValue('is_commercial', option)}
-                      className={`py-3 px-4 rounded-md border font-bold transition ${
-                        formData.is_commercial === option 
-                        ? 'bg-primary text-white border-primary' 
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-accent'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">Were emergency services called?</label>
-                <div className="grid grid-cols-2 gap-4">
-                  {['Yes', 'No'].map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setRadioValue('emergency_services', option)}
-                      className={`py-3 px-4 rounded-md border font-bold transition ${
-                        formData.emergency_services === option 
-                        ? 'bg-primary text-white border-primary' 
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-accent'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Briefly describe the accident</label>
+              <textarea 
+                required
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="What happened?"
+                rows={3}
+                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+              />
             </div>
-          )}
-
-          {step === 3 && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
-                <input
-                  required
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent outline-none"
-                  placeholder="John Doe"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Phone Number</label>
-                <input
-                  required
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent outline-none"
-                  placeholder="(555) 000-0000"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Email (Optional)</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-accent focus:border-accent outline-none"
-                  placeholder="john@example.com"
-                />
-              </div>
-              <div className="flex items-start">
-                <input
-                  required
-                  type="checkbox"
-                  id="agreed"
-                  name="agreed"
-                  checked={formData.agreed}
-                  onChange={handleChange}
-                  className="mt-1 h-4 w-4 text-accent border-gray-300 rounded"
-                />
-                <label htmlFor="agreed" className="ml-2 block text-[10px] text-gray-500 leading-tight">
-                  By clicking below, I agree to be contacted by a legal professional regarding my case.
-                </label>
-              </div>
-            </div>
-          )}
-
-          <div className="flex gap-4">
-            {step > 1 && (
-              <button
-                type="button"
-                onClick={() => setStep(step - 1)}
-                className="w-1/3 border border-gray-300 text-gray-600 font-bold py-4 rounded-md hover:bg-gray-50 transition"
-              >
-                Back
-              </button>
-            )}
-            <button
-              disabled={status === "loading"}
-              type="submit"
-              className={`${step === 1 ? 'w-full' : 'flex-1'} bg-accent hover:bg-opacity-90 text-primary font-bold py-4 rounded-md transition duration-300 uppercase tracking-wider text-lg shadow-lg`}
-            >
-              {status === "loading" ? "Processing..." : step < 3 ? "Continue" : "Get My Free Case Review"}
-            </button>
           </div>
-
-          {status === "error" && (
-            <p className="text-red-500 text-sm text-center">Something went wrong. Please try again.</p>
-          )}
-
-          {/* Time Sensitivity Warning below form */}
-          {step === 3 && (
-            <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-md flex items-start space-x-3">
-                <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div className="text-xs text-amber-800">
-                    <p className="font-bold mb-1 uppercase tracking-wide">Time Sensitivity Warning</p>
-                    <p>Truck accident claims have strict legal deadlines. Speak with an attorney as soon as possible to protect your rights.</p>
-                </div>
+        ) : (
+          <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+            <div>
+              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Full Name</label>
+              <input 
+                required
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+              />
             </div>
-          )}
-        </form>
-      </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Phone Number</label>
+              <input 
+                required
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="(555) 000-0000"
+                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Email Address (Optional)</label>
+              <input 
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="pt-4 space-y-6">
+          <button 
+            type="submit"
+            disabled={status === 'loading'}
+            className="w-full bg-accent text-primary font-bold py-5 rounded-xl hover:bg-accent/90 transition-all text-xl shadow-lg disabled:opacity-50 uppercase tracking-widest"
+          >
+            {status === 'loading' ? 'Processing...' : step === 1 ? 'Next Step' : 'Get Matched with a Lawyer'}
+          </button>
+          
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center space-x-2 text-gray-400 text-xs font-bold uppercase tracking-widest">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span>Secure & Confidential</span>
+            </div>
+            
+            <div className="w-full pt-4 border-t border-gray-100">
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-center space-x-2 text-xs font-bold text-gray-500 uppercase tracking-tighter">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>No Fee Unless You Win</span>
+                </div>
+                <div className="flex items-center space-x-2 text-xs font-bold text-gray-500 uppercase tracking-tighter">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Free Case Review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

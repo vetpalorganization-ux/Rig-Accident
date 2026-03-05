@@ -1,41 +1,61 @@
 import { NextResponse } from "next/server";
-import { Resend } from 'resend';
+import { sendLeadEmail } from "@/lib/email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Simple in-memory rate limiting (Note: This will reset on serverless cold starts)
+const rateLimitMap = new Map<string, number>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 5;
 
 export async function POST(request: Request) {
   try {
+    const ip = request.headers.get("x-forwarded-for") || "unknown";
+    const now = Date.now();
+    
+    // Simple Rate Limiting
+    const lastRequestTime = rateLimitMap.get(ip) || 0;
+    if (now - lastRequestTime < RATE_LIMIT_WINDOW / MAX_REQUESTS) {
+       return NextResponse.json({ success: false, message: "Too many requests. Please try again later." }, { status: 429 });
+    }
+    rateLimitMap.set(ip, now);
+
     const body = await request.json();
-    const { name, phone, email, state, accident_type, description, timestamp } = body;
+    const { name, phone, email, timestamp, answers, source, honeypot } = body;
 
-    console.log("Received Lead:", body);
-
-    // 1. Send Email Notification via Resend
-    if (process.env.RESEND_API_KEY) {
-      try {
-        await resend.emails.send({
-          from: 'Rig Accident Leads <leads@rigaccident.com>',
-          to: ['intake@rigaccident.com'],
-          subject: `New Lead: ${name} - ${accident_type}`,
-          html: `
-            <h1>New Lead Captured</h1>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>State:</strong> ${state}</p>
-            <p><strong>Accident Type:</strong> ${accident_type}</p>
-            <p><strong>Description:</strong> ${description}</p>
-            <p><strong>Timestamp:</strong> ${timestamp}</p>
-            <p><strong>Source:</strong> rigaccident.com</p>
-          `
-        });
-      } catch (emailError) {
-        console.error("Resend Email Error:", emailError);
-      }
+    // Honeypot check
+    if (honeypot) {
+      console.warn("Spam detected via honeypot from IP:", ip);
+      return NextResponse.json({ success: true, message: "Lead captured successfully" }, { status: 200 }); // Silent fail
     }
 
-    // 2. Webhook / CRM Integration (Optional)
-    // await fetch('YOUR_WEBHOOK_URL', { ... });
+    // Basic Validation
+    if (!name || !phone) {
+      return NextResponse.json({ success: false, message: "Name and phone are required" }, { status: 400 });
+    }
+
+    console.log(`Received Lead from ${source}:`, body);
+
+    // Send Email Notification via Resend (using our lib)
+    const emailResult = await sendLeadEmail({
+      name,
+      phone,
+      email,
+      timestamp,
+      answers: answers || {
+        'State': body.state,
+        'Accident Type': body.accident_type,
+        'Description': body.description
+      },
+      source: source || 'form',
+      metadata: {
+        ip,
+        userAgent: request.headers.get("user-agent") || "unknown"
+      }
+    });
+
+    if (!emailResult.success) {
+      console.error("Failed to send lead email:", emailResult.error);
+      // We still return success to the user as the lead was captured in logs
+    }
 
     return NextResponse.json({ success: true, message: "Lead captured successfully" }, { status: 200 });
   } catch (error) {
