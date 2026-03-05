@@ -14,8 +14,8 @@ export async function POST(request: Request) {
     if (process.env.RESEND_API_KEY) {
       try {
         await resend.emails.send({
-          from: 'Rig Accident Leads <onboarding@resend.dev>', // Update this after verifying your domain in Resend
-          to: ['delivered@resend.dev'], // Update to your actual notification email
+          from: 'Rig Accident Leads <leads@rigaccident.com>',
+          to: ['intake@rigaccident.com'],
           subject: `New Lead: ${name} - ${accident_type}`,
           html: `
             <h1>New Lead Captured</h1>
