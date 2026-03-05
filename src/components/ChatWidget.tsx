@@ -232,7 +232,8 @@ export const ChatWidget = () => {
       ) : (
         <button
           onClick={handleOpen}
-          className="bg-primary text-white p-4 rounded-full shadow-2xl flex items-center space-x-3 hover:scale-105 transition-all group"
+          className="bg-primary text-white p-4 rounded-full shadow-2xl flex items-center space-x-3 hover:scale-105 transition-all group border border-[#CCCCCC]"
+          style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
         >
           <div className="bg-accent text-primary w-10 h-10 rounded-full flex items-center justify-center font-bold">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -17,7 +17,7 @@ export default function Home() {
         <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
         
-        <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center py-12">
+        <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-20 items-center py-12">
           <div className="max-w-2xl">
             <div className="inline-flex items-center space-x-2 bg-primary border border-accent/30 px-3 py-1 rounded-full mb-6">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
@@ -34,19 +34,25 @@ export default function Home() {
                 <TrustBadges />
             </div>
 
-            <div className="flex flex-row gap-2 sm:gap-4 mb-12 overflow-x-auto no-scrollbar whitespace-nowrap pb-2">
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <a 
                 href="#lead-form"
-                className="bg-accent hover:bg-opacity-90 text-primary font-bold px-4 sm:px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-sm sm:text-lg shadow-xl flex-1 min-w-fit"
+                className="bg-accent hover:bg-opacity-90 text-primary font-bold px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl flex-1"
               >
                 Get Matched with a Lawyer
               </a>
-              <a 
-                href="#calculator"
-                className="bg-primary hover:bg-primary/80 border-2 border-accent text-white font-bold px-4 sm:px-8 py-4 rounded-xl transition duration-300 text-center flex items-center justify-center space-x-2 backdrop-blur-sm flex-1 min-w-fit text-sm sm:text-lg"
-              >
-                Estimate Claim Value
-              </a>
+            </div>
+
+            <div className="mb-12">
+                <a 
+                    href="#calculator"
+                    className="inline-flex items-center space-x-2 text-white hover:text-accent font-bold transition-colors group"
+                >
+                    <span className="border-b-2 border-accent group-hover:border-white">Estimate Claim Value</span>
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
             </div>
 
             <p className="text-sm text-gray-400 mt-4 italic">
@@ -179,7 +185,7 @@ export default function Home() {
       <footer className="bg-primary py-12 text-white text-center border-t border-white/10">
         <div className="container mx-auto px-4">
           <p className="mb-4 font-bold text-white">RigAccident.com</p>
-          <p className="text-sm max-w-2xl mx-auto text-accent mb-8">
+          <p className="text-sm max-w-2xl mx-auto mb-8" style={{ color: '#FDF6E3' }}>
             RigAccident.com is a lawyer matching service. We connect victims with independent attorneys. We are not a law firm and do not provide legal advice. Consultations are provided by third-party lawyers.
           </p>
           <p className="mt-8 text-xs text-white">
