@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import LeadForm from "@/components/LeadForm";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import StickyContactBar from "@/components/StickyContactBar";
@@ -5,8 +8,49 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import TrustBadges from "@/components/TrustBadges";
 import SettlementCalculator from "@/components/SettlementCalculator";
 import ChatWidget from "@/components/ChatWidget";
+import FeatureModal from "@/components/FeatureModal";
+import CookieConsent from "@/components/CookieConsent";
+import Link from 'next/link';
+
+const FEATURES = [
+  {
+    title: 'Experienced Lawyers',
+    desc: 'We only match you with attorneys who have a proven track record in truck accident cases.',
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop',
+    longDesc: 'Our network consists exclusively of attorneys who specialize in commercial vehicle litigation. These firms have the resources to take on large trucking corporations and their insurance providers.\n\nWhen you are matched through our system, you can be confident that your legal representative understands the complexities of federal trucking regulations and has successfully secured multi-million dollar settlements for victims like you.',
+    icon: (
+      <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    )
+  },
+  {
+    title: 'No Upfront Cost',
+    desc: 'Your consultation is free, and you pay nothing unless your lawyer wins your case.',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop',
+    longDesc: 'We believe that legal representation should be accessible to everyone, regardless of their financial situation. All attorneys in our matching system work on a contingency fee basis.\n\nThis means you will never receive a bill for hourly fees. Your lawyer only gets paid if they successfully recover compensation for you through a settlement or jury verdict. If there is no recovery, you owe no attorney fees—period.',
+    icon: (
+      <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
+  },
+  {
+    title: 'Fast Case Review',
+    desc: 'Our system prioritizes serious accidents for immediate review by legal specialists.',
+    image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop',
+    longDesc: 'Time is of the essence in truck accident cases. Evidence can disappear quickly, and black box data must be preserved immediately.\n\nOur matching system is designed for speed. Once you submit your details, our automation engine prioritizes high-impact cases for instant notification to available attorneys. Most users receive a call back within minutes to begin their free legal evaluation.',
+    icon: (
+      <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    )
+  }
+];
 
 export default function Home() {
+  const [selectedFeature, setSelectedFeature] = useState<typeof FEATURES[0] | null>(null);
+
   return (
     <main className="min-h-screen">
       <StickyContactBar />
@@ -115,38 +159,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-16">Why Victims Choose Our Matching System</h2>
           <div className="grid md:grid-cols-3 gap-12">
-            {[
-              {
-                title: 'Experienced Lawyers',
-                desc: 'We only match you with attorneys who have a proven track record in truck accident cases.',
-                image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop',
-                icon: (
-                  <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                )
-              },
-              {
-                title: 'No Upfront Cost',
-                desc: 'Your consultation is free, and you pay nothing unless your lawyer wins your case.',
-                image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop',
-                icon: (
-                  <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                )
-              },
-              {
-                title: 'Fast Case Review',
-                desc: 'Our system prioritizes serious accidents for immediate review by legal specialists.',
-                image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop',
-                icon: (
-                  <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                )
-              }
-            ].map((feature, i) => (
+            {FEATURES.map((feature, i) => (
               <div key={i} className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full focus-within:ring-2 focus-within:ring-accent">
                 <div className="relative h-48 overflow-hidden">
                   <picture>
@@ -161,19 +174,19 @@ export default function Home() {
                     />
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 bg-white p-2 rounded-lg shadow-lg">
+                  <div className="absolute bottom-4 left-4 bg-white/70 backdrop-blur-md border border-white/20 p-2 rounded-lg shadow-lg">
                     {feature.icon}
                   </div>
                 </div>
                 <div className="p-8 flex flex-col flex-1">
                   <h3 className="text-xl font-bold text-primary mb-4">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed mb-6 flex-1">{feature.desc}</p>
-                  <a 
-                    href="#lead-form" 
+                  <button 
+                    onClick={() => setSelectedFeature(feature)}
                     className="inline-flex items-center justify-center w-full min-h-[48px] bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
                   >
                     Learn More
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
@@ -188,16 +201,35 @@ export default function Home() {
           <p className="text-sm max-w-2xl mx-auto mb-8" style={{ color: '#FDF6E3' }}>
             RigAccident.com is a lawyer matching service. We connect victims with independent attorneys. We are not a law firm and do not provide legal advice. Consultations are provided by third-party lawyers.
           </p>
+          
+          <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm font-medium">
+            <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy Policy</Link>
+            <Link href="/cookies" className="hover:text-accent transition-colors">Cookie Policy</Link>
+            <Link href="/ai-disclosure" className="hover:text-accent transition-colors">AI Disclosure</Link>
+            <Link href="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
+          </div>
+
           <p className="mt-8 text-xs text-white">
             © {new Date().getFullYear() === 2024 ? '2024 - 2026' : `2024 - ${new Date().getFullYear()}`} RigAccident.com. All Rights Reserved.
           </p>
         </div>
       </footer>
 
+      {/* Feature Modal */}
+      <FeatureModal 
+        isOpen={!!selectedFeature}
+        onClose={() => setSelectedFeature(null)}
+        title={selectedFeature?.title || ''}
+        description={selectedFeature?.desc || ''}
+        image={selectedFeature?.image || ''}
+        longDescription={selectedFeature?.longDesc || ''}
+      />
+
       {/* Floating Components */}
       <ChatWidget />
       <FloatingCallButton />
       <ExitIntentPopup />
+      <CookieConsent />
 
       {/* Mobile CTA (Hidden on Desktop) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/90 backdrop-blur-md border-t border-gray-100">
