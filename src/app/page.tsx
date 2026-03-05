@@ -19,9 +19,9 @@ export default function Home() {
         
         <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center py-12">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-accent/20 border border-accent/30 px-3 py-1 rounded-full mb-6">
+            <div className="inline-flex items-center space-x-2 bg-primary border border-accent/30 px-3 py-1 rounded-full mb-6">
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <span className="text-accent text-xs font-bold uppercase tracking-widest">Free Lawyer Matching System</span>
+              <span className="text-white text-xs font-bold uppercase tracking-widest">Free Lawyer Matching System</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Injured in a <span className="text-accent text-glow">Truck or Rig Accident?</span>
@@ -34,16 +34,16 @@ export default function Home() {
                 <TrustBadges />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-row gap-2 sm:gap-4 mb-12 overflow-x-auto no-scrollbar whitespace-nowrap pb-2">
               <a 
                 href="#lead-form"
-                className="bg-accent hover:bg-opacity-90 text-primary font-bold px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl"
+                className="bg-accent hover:bg-opacity-90 text-primary font-bold px-4 sm:px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-sm sm:text-lg shadow-xl flex-1 min-w-fit"
               >
                 Get Matched with a Lawyer
               </a>
               <a 
                 href="#calculator"
-                className="bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-xl transition duration-300 text-center flex items-center justify-center space-x-2 backdrop-blur-sm"
+                className="bg-primary hover:bg-primary/80 border-2 border-accent text-white font-bold px-4 sm:px-8 py-4 rounded-xl transition duration-300 text-center flex items-center justify-center space-x-2 backdrop-blur-sm flex-1 min-w-fit text-sm sm:text-lg"
               >
                 Estimate Claim Value
               </a>
@@ -113,6 +113,7 @@ export default function Home() {
               {
                 title: 'Experienced Lawyers',
                 desc: 'We only match you with attorneys who have a proven track record in truck accident cases.',
+                image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop',
                 icon: (
                   <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -122,6 +123,7 @@ export default function Home() {
               {
                 title: 'No Upfront Cost',
                 desc: 'Your consultation is free, and you pay nothing unless your lawyer wins your case.',
+                image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop',
                 icon: (
                   <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -131,6 +133,7 @@ export default function Home() {
               {
                 title: 'Fast Case Review',
                 desc: 'Our system prioritizes serious accidents for immediate review by legal specialists.',
+                image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop',
                 icon: (
                   <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -138,10 +141,34 @@ export default function Home() {
                 )
               }
             ].map((feature, i) => (
-              <div key={i} className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow">
-                <div className="mb-6 flex justify-center">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-primary mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
+              <div key={i} className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full focus-within:ring-2 focus-within:ring-accent">
+                <div className="relative h-48 overflow-hidden">
+                  <picture>
+                    <source srcSet={`${feature.image}&fm=webp`} type="image/webp" />
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                      loading="lazy" 
+                      width="400" 
+                      height="200" 
+                    />
+                  </picture>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4 bg-white p-2 rounded-lg shadow-lg">
+                    {feature.icon}
+                  </div>
+                </div>
+                <div className="p-8 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-primary mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed mb-6 flex-1">{feature.desc}</p>
+                  <a 
+                    href="#lead-form" 
+                    className="inline-flex items-center justify-center w-full min-h-[48px] bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  >
+                    Learn More
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -149,13 +176,15 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary py-12 text-white/50 text-center border-t border-white/10">
+      <footer className="bg-primary py-12 text-white text-center border-t border-white/10">
         <div className="container mx-auto px-4">
           <p className="mb-4 font-bold text-white">RigAccident.com</p>
-          <p className="text-sm max-w-2xl mx-auto">
+          <p className="text-sm max-w-2xl mx-auto text-accent mb-8">
             RigAccident.com is a lawyer matching service. We connect victims with independent attorneys. We are not a law firm and do not provide legal advice. Consultations are provided by third-party lawyers.
           </p>
-          <p className="mt-8 text-xs">© 2024 RigAccident.com. All Rights Reserved.</p>
+          <p className="mt-8 text-xs text-white">
+            © {new Date().getFullYear() === 2024 ? '2024 - 2026' : `2024 - ${new Date().getFullYear()}`} RigAccident.com. All Rights Reserved.
+          </p>
         </div>
       </footer>
 

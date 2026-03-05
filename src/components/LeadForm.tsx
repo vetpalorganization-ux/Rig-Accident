@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
-import TrustBadges from './TrustBadges';
 
 export default function LeadForm() {
   const [step, setStep] = useState(1);

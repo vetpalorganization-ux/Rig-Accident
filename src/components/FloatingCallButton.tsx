@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
 export default function FloatingCallButton() {
   return (
     <div className="md:hidden fixed bottom-24 right-6 z-50">

@@ -125,7 +125,7 @@ export const SettlementCalculator = () => {
               <button
                 onClick={handleNext}
                 disabled={step === 1 && !formData.state}
-                className="bg-accent text-primary font-bold px-8 py-3 rounded-xl hover:bg-accent/90 transition-all disabled:opacity-50"
+                className="bg-accent text-primary font-bold px-8 py-3 rounded-xl hover:bg-accent/90 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100 min-h-[48px] min-w-[120px]"
               >
                 {step === 4 ? 'Calculate Now' : 'Next Step'}
               </button>

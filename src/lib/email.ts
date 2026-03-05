@@ -10,7 +10,7 @@ export interface LeadData {
   timestamp: string;
   answers?: Record<string, string>;
   source: 'chat' | 'form' | 'calculator';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export const sendLeadEmail = async (data: LeadData) => {
