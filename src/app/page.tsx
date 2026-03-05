@@ -51,13 +51,13 @@ const FEATURES = [
 const HERO_VARIANTS = [
   {
     id: 'variant-a',
-    image: 'https://images.unsplash.com/photo-1614035030394-b6e5b01e0737?q=80&w=2560&auto=format&fit=crop', // Rig accident scene with emergency lights
-    alt: 'Dramatic scene of a semi-truck accident with emergency responders'
+    image: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2560&auto=format&fit=crop', // Large rig on highway
+    alt: 'Large commercial truck on the highway'
   },
   {
     id: 'variant-b',
-    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=2560&auto=format&fit=crop', // Alternative dramatic truck scene
-    alt: 'Professional responders at a commercial vehicle accident site'
+    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2560&auto=format&fit=crop', // Big rig front view
+    alt: 'Professional view of a commercial semi-truck'
   }
 ];
 
@@ -96,12 +96,12 @@ export default function Home() {
               type="image/webp"
             />
             <img 
-              src={`${heroVariant.image}&w=2560`}
-              alt={heroVariant.alt}
-              className="absolute inset-0 w-full h-full object-cover opacity-50 transition-opacity duration-1000"
-              style={{ objectPosition: 'center 40%' }}
-              loading="eager"
-            />
+               src={`${heroVariant.image}&w=2560`}
+               alt={heroVariant.alt}
+               className="absolute inset-0 w-full h-full object-cover opacity-50 transition-opacity duration-1000"
+               style={{ objectPosition: 'center' }}
+               loading="eager"
+             />
           </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
           <div className="absolute inset-0 bg-black/40" /> {/* Darkening overlay for contrast */}
@@ -157,15 +157,26 @@ export default function Home() {
       </section>
 
       {/* Calculator Section */}
-      <section id="calculator" className="py-24 bg-gray-50 border-y border-gray-100 relative">
-        <div className="container mx-auto px-4">
+      <section id="calculator" className="py-24 relative overflow-hidden">
+        {/* Background Image for Calculator */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1592850634844-97112c44801e?q=80&w=2560&auto=format&fit=crop" 
+            alt="Truck accident emergency scene"
+            className="w-full h-full object-cover opacity-20"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-primary/90" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10 text-white">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <div className="bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit">Free Tool</div>
-              <h2 className="text-4xl md:text-5xl font-bold text-primary leading-tight">
+              <div className="bg-accent text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit">Free Tool</div>
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                 Calculate Your Potential <span className="text-accent">Settlement Value</span>
               </h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="text-xl text-gray-200 leading-relaxed">
                 Truck accident claims can be worth significant amounts due to the severe nature of injuries and commercial insurance policies. Use our free calculator to see what your case could be worth.
               </p>
               <div className="space-y-4">
@@ -176,12 +187,12 @@ export default function Home() {
                   'Property damage recovery'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center space-x-3">
-                    <div className="w-6 h-6 bg-accent/20 text-accent rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span className="font-bold text-gray-700">{item}</span>
+                    <span className="font-bold text-gray-100">{item}</span>
                   </div>
                 ))}
               </div>
@@ -201,8 +212,19 @@ export default function Home() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-24 relative overflow-hidden">
+        {/* Background Image for Trust Section */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1586191582151-f7263d082d3f?q=80&w=2560&auto=format&fit=crop" 
+            alt="Damaged commercial vehicle"
+            className="w-full h-full object-cover opacity-10"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-white/95" />
+        </div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-16">Why Victims Choose Our Matching System</h2>
           <div className="grid md:grid-cols-3 gap-12">
             {FEATURES.map((feature, i) => (
