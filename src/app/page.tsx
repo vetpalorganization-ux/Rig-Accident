@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LeadForm from "@/components/LeadForm";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import StickyContactBar from "@/components/StickyContactBar";
@@ -48,8 +48,38 @@ const FEATURES = [
   }
 ];
 
+const HERO_VARIANTS = [
+  {
+    id: 'variant-a',
+    image: 'https://images.unsplash.com/photo-1614035030394-b6e5b01e0737?q=80&w=2560&auto=format&fit=crop', // Rig accident scene with emergency lights
+    alt: 'Dramatic scene of a semi-truck accident with emergency responders'
+  },
+  {
+    id: 'variant-b',
+    image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=2560&auto=format&fit=crop', // Alternative dramatic truck scene
+    alt: 'Professional responders at a commercial vehicle accident site'
+  }
+];
+
 export default function Home() {
   const [selectedFeature, setSelectedFeature] = useState<typeof FEATURES[0] | null>(null);
+  const [heroVariant, setHeroVariant] = useState(HERO_VARIANTS[0]);
+
+  useEffect(() => {
+     // Simple A/B testing logic
+     let variant = localStorage.getItem('hero-ab-variant');
+     if (!variant) {
+       variant = Math.random() > 0.5 ? 'variant-a' : 'variant-b';
+       localStorage.setItem('hero-ab-variant', variant);
+     }
+     const selected = HERO_VARIANTS.find(v => v.id === variant) || HERO_VARIANTS[0];
+     
+     // Move to next tick to avoid cascading render lint error
+     const timer = setTimeout(() => {
+       setHeroVariant(selected);
+     }, 0);
+     return () => clearTimeout(timer);
+   }, []);
 
   return (
     <main className="min-h-screen">
@@ -57,9 +87,25 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center bg-primary text-white overflow-hidden pt-12">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
+        {/* Background Overlay with Responsive Variants */}
+        <div className="absolute inset-0 z-0">
+          <picture>
+            <source 
+              srcSet={`${heroVariant.image}&fm=webp&w=640 640w, ${heroVariant.image}&fm=webp&w=1280 1280w, ${heroVariant.image}&fm=webp&w=2560 2560w`}
+              sizes="100vw"
+              type="image/webp"
+            />
+            <img 
+              src={`${heroVariant.image}&w=2560`}
+              alt={heroVariant.alt}
+              className="absolute inset-0 w-full h-full object-cover opacity-50 transition-opacity duration-1000"
+              style={{ objectPosition: 'center 40%' }}
+              loading="eager"
+            />
+          </picture>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
+          <div className="absolute inset-0 bg-black/40" /> {/* Darkening overlay for contrast */}
+        </div>
         
         <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-20 items-center py-12">
           <div className="max-w-2xl">
