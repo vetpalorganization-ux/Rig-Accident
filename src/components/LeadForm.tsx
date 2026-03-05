@@ -114,8 +114,8 @@ export default function LeadForm() {
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
-                placeholder="e.g. Texas, Florida..."
-                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Please enter the state (e.g., Texas, Florida)"
+                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
               />
             </div>
             <div>
@@ -125,9 +125,9 @@ export default function LeadForm() {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="What happened?"
+                placeholder="Please provide a brief description of what happened during the accident."
                 rows={3}
-                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
               />
             </div>
           </div>
@@ -140,8 +140,8 @@ export default function LeadForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
-                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Please enter your full legal name"
+                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
               />
             </div>
             <div>
@@ -152,8 +152,8 @@ export default function LeadForm() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="(555) 000-0000"
-                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Please enter your primary phone number"
+                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
               />
             </div>
             <div>
@@ -163,8 +163,8 @@ export default function LeadForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="john@example.com"
-                className="w-full border-2 border-gray-100 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Please enter your email address for correspondence"
+                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
               />
             </div>
           </div>

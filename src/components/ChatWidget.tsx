@@ -184,8 +184,8 @@ export const ChatWidget = () => {
                       <input 
                         name="textInput"
                         required
-                        className="flex-1 border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                        placeholder="Type your answer..."
+                        className="flex-1 border border-black rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-black placeholder:text-black"
+                        placeholder="Please type your answer here..."
                       />
                       <button className="bg-primary text-white p-3 rounded-xl hover:bg-primary/90 transition-colors">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -200,9 +200,9 @@ export const ChatWidget = () => {
                 {conversationFlow[currentStepId].type === 'contact' && (
                   <div className="pl-8">
                     <form onSubmit={handleContactSubmit} className="space-y-2">
-                      <input name="name" required placeholder="Full Name" className="w-full border border-gray-200 rounded-xl p-3 text-sm" />
-                      <input name="phone" required type="tel" placeholder="Phone Number" className="w-full border border-gray-200 rounded-xl p-3 text-sm" />
-                      <input name="email" type="email" placeholder="Email Address (Optional)" className="w-full border border-gray-200 rounded-xl p-3 text-sm" />
+                      <input name="name" required placeholder="Please enter your full name" className="w-full border border-black rounded-xl p-3 text-sm text-black placeholder:text-black" />
+                      <input name="phone" required type="tel" placeholder="Please enter your phone number" className="w-full border border-black rounded-xl p-3 text-sm text-black placeholder:text-black" />
+                      <input name="email" type="email" placeholder="Please enter your email address (Optional)" className="w-full border border-black rounded-xl p-3 text-sm text-black placeholder:text-black" />
                       <button 
                         disabled={isSubmitting}
                         className="w-full bg-accent text-primary font-bold p-3 rounded-xl hover:bg-accent/90 transition-colors disabled:opacity-50"

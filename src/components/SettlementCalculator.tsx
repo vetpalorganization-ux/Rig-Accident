@@ -57,8 +57,8 @@ export const SettlementCalculator = () => {
                 <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider">What state did the accident happen in?</label>
                 <input 
                   type="text" 
-                  className="w-full border-2 border-gray-200 rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors"
-                  placeholder="Enter state..."
+                  className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+                  placeholder="Please enter the state where the accident occurred"
                   value={formData.state}
                   onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                 />
