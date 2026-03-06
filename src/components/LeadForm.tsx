@@ -6,27 +6,36 @@ import { trackEvent } from '@/lib/analytics';
 export default function LeadForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+    injured: '',
+    commercial_truck: '',
+    state: '',
+    description: '',
     name: '',
     phone: '',
     email: '',
-    state: '',
-    accident_type: 'Truck/18-Wheeler',
-    description: '',
     honeypot: '', // Anti-spam
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  const totalSteps = 5;
+
+  const handleNext = () => {
+    if (step < totalSteps) {
+      setStep(step + 1);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (step < totalSteps) {
+      handleNext();
+      return;
+    }
     
     // Check honeypot
     if (formData.honeypot) {
       console.warn('Bot detected via honeypot');
-      return;
-    }
-
-    if (step < 2) {
-      setStep(step + 1);
       return;
     }
     
@@ -58,6 +67,11 @@ export default function LeadForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleOptionClick = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setTimeout(() => handleNext(), 300);
   };
 
   if (status === 'success') {
@@ -179,13 +193,11 @@ export default function LeadForm() {
           </button>
           
           <div className="flex flex-col items-center space-y-4">
-            <div className="flex items-center space-x-2 text-gray-400 text-xs font-bold uppercase tracking-widest">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              <span>Secure & Confidential</span>
+            <div className="text-center text-xs text-gray-500 max-w-sm mx-auto">
+              <p className="font-bold">RigAccident.com is a lawyer matching service.</p>
+              <p>We connect accident victims with experienced truck accident attorneys. Consultations are free and confidential. We are not a law firm and do not provide legal advice.</p>
             </div>
-            
+
             <div className="w-full pt-4 border-t border-gray-100">
               <div className="grid grid-cols-1 gap-3">
                 <div className="flex items-center space-x-2 text-xs font-bold text-gray-500 uppercase tracking-tighter">

@@ -147,6 +147,7 @@ export const SettlementCalculator = () => {
             <div className="space-y-4">
               <a 
                 href="#lead-form"
+                onClick={() => trackEvent('calculator_cta_click', { estimate_min: estimate.min, estimate_max: estimate.max })}
                 className="block w-full bg-accent text-primary font-bold py-4 rounded-xl hover:bg-accent/90 transition-all text-lg shadow-lg"
               >
                 Get My Free Case Review

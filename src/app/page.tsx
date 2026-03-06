@@ -113,11 +113,13 @@ export default function Home() {
               <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <span className="text-white text-xs font-bold uppercase tracking-widest">Free Lawyer Matching System</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Injured in a <span className="text-accent text-glow">Truck or Rig Accident?</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Injured in a Truck Accident? <br />
+              <span className="text-accent text-glow">You May Be Entitled to Significant Compensation.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-              Our system connects accident victims with experienced truck accident attorneys. Your consultation is free and confidential.
+            <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+              Get Matched With an Experienced Truck Accident Lawyer in Minutes. <br />
+              <span className="font-bold text-white">Free Case Review • No Fee Unless You Win • 100% Confidential</span>
             </p>
             
             <div className="hidden md:block mb-12">
@@ -174,10 +176,11 @@ export default function Home() {
             <div className="space-y-6">
               <div className="bg-accent text-primary text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit">Free Tool</div>
               <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-                Calculate Your Potential <span className="text-accent">Settlement Value</span>
+                Truck Accident Settlements Can Be Significant. <br />
+                <span className="text-accent">Use Our Free Estimate Tool to See What Your Case Could Be Worth.</span>
               </h2>
               <p className="text-xl text-gray-200 leading-relaxed">
-                Truck accident claims can be worth significant amounts due to the severe nature of injuries and commercial insurance policies. Use our free calculator to see what your case could be worth.
+                Truck accident claims may include compensation for:
               </p>
               <div className="space-y-4">
                 {[
@@ -259,6 +262,44 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Accident Types Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-16">Common Truck Accident Cases We Handle</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-left">
+            {[
+              '18-Wheeler Collisions', 
+              'Jackknife Accidents', 
+              'Underride Accidents', 
+              'Driver Fatigue Accidents', 
+              'Overloaded Truck Accidents', 
+              'Rear-End Truck Collisions'
+            ].map((type) => (
+              <div key={type} className="flex items-center space-x-4">
+                <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </div>
+                <span className="font-semibold text-gray-700">{type}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Block */}
+      <section className="bg-primary text-white py-24">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Speak With a Truck Accident Lawyer Today</h2>
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Free Case Review • No Fee Unless You Win • 100% Confidential</p>
+          <a 
+            href="#lead-form"
+            className="bg-accent hover:bg-opacity-90 text-primary font-bold px-12 py-5 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl"
+          >
+            Start My Free Case Review
+          </a>
         </div>
       </section>
 
