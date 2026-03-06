@@ -9,7 +9,7 @@ export interface LeadData {
   email?: string;
   timestamp: string;
   answers?: Record<string, string>;
-  source: 'chat' | 'form' | 'calculator';
+  source: 'chat' | 'form' | 'calculator' | 'attorney';
   metadata?: Record<string, unknown>;
 }
 
@@ -20,6 +20,10 @@ export const sendLeadEmail = async (data: LeadData) => {
   }
 
   const { name, phone, email, timestamp, answers, source, metadata } = data;
+  const subject =
+    source === 'attorney'
+      ? 'New Attorney Network Inquiry — RigAccident.com'
+      : 'New Truck Accident Lead — RigAccident.com';
 
   const answersHtml = answers 
     ? Object.entries(answers).map(([q, a]) => `<li><strong>${q}:</strong> ${a}</li>`).join('')
@@ -33,10 +37,10 @@ export const sendLeadEmail = async (data: LeadData) => {
     const response = await resend.emails.send({
       from: 'Rig Accident Leads <leads@rigaccident.com>',
       to: ['intake@rigaccident.com'], // In a real app, this should be configurable
-      subject: `New Truck Accident Lead — RigAccident.com`,
+      subject,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
-          <h2 style="color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">New Truck Accident Lead Captured</h2>
+          <h2 style="color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px;">${source === 'attorney' ? 'New Attorney Network Inquiry' : 'New Truck Accident Lead Captured'}</h2>
           
           <div style="background: #f8fafc; padding: 15px; border-radius: 6px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #334155;">User Contact Info</h3>

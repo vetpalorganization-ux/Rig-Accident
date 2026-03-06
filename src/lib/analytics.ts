@@ -1,6 +1,15 @@
 // lib/analytics.ts
 
-type AnalyticsEvent = 'chat_opened' | 'chat_completed' | 'calculator_used' | 'form_submitted' | 'phone_call_clicked' | 'calculator_cta_click';
+type AnalyticsEvent =
+  | 'chat_opened'
+  | 'chat_completed'
+  | 'calculator_used'
+  | 'form_submitted'
+  | 'phone_call_clicked'
+  | 'calculator_cta_click'
+  | 'attorney_cta_click'
+  | 'attorney_email_click'
+  | 'attorney_form_submitted';
 
 export const trackEvent = (event: AnalyticsEvent, properties?: Record<string, unknown>) => {
   if (typeof window === 'undefined') return;
