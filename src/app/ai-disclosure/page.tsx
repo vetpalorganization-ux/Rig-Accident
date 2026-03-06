@@ -3,25 +3,25 @@ import LegalPage from '@/components/LegalPage';
 export default function AIDisclosurePage() {
   return (
     <LegalPage
-      title="AI Usage Disclosure"
-      lastUpdated="March 5, 2026"
+      title="AI Disclosure"
+      lastUpdated="March 6, 2026"
       content={
         <div className="space-y-8 text-lg leading-relaxed">
           <section>
-            <h2 className="text-2xl font-bold mb-4 text-primary">How We Use AI</h2>
-            <p>RigAccident.com utilizes artificial intelligence (AI) and automated systems to improve user experience and lead qualification processes.</p>
+            <h2 className="text-2xl font-bold mb-4 text-primary">Automated Intake Assistance</h2>
+            <p>RigAccident.com may use automated tools, including AI systems, to assist with case intake, collect details about your accident, and route your inquiry for review.</p>
           </section>
           <section>
-            <h2 className="text-2xl font-bold mb-4 text-primary">AI Chat Assistant</h2>
-            <p>Our Chat Assistant is a deterministic AI-powered tool designed to help visitors quickly navigate their potential legal options. It collects accident details and provides information based on programmed logic.</p>
+            <h2 className="text-2xl font-bold mb-4 text-primary">No Legal Advice</h2>
+            <p>AI tools used on this website do not provide legal advice and do not replace professional legal judgment.</p>
+          </section>
+          <section>
+            <h2 className="text-2xl font-bold mb-4 text-primary">Human Decision-Making</h2>
+            <p>All case decisions are made by independent, licensed attorneys. AI may assist with information gathering and routing only.</p>
           </section>
           <section>
             <h2 className="text-2xl font-bold mb-4 text-primary">Data Processing</h2>
-            <p>Lead data captured via AI systems is processed according to our Privacy Policy. We prioritize the security and confidentiality of all information provided to our automated tools.</p>
-          </section>
-          <section>
-            <h2 className="text-2xl font-bold mb-4 text-primary">Human Oversight</h2>
-            <p>All AI-processed leads are reviewed by human legal intake specialists to ensure accuracy and provide a personalized experience during follow-up consultations.</p>
+            <p>Information collected via AI-assisted tools is processed according to our Privacy Policy and may be shared with independent attorneys to evaluate your inquiry.</p>
           </section>
         </div>
       }

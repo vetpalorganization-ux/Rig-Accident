@@ -130,8 +130,8 @@ export default function LeadForm() {
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300 text-center">
             <label className="block text-lg font-bold text-gray-800">Were you injured in the accident?</label>
             <div className="grid grid-cols-2 gap-4 pt-4">
-              <button type="button" onClick={() => handleOptionClick('injured', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-200 hover:border-primary">Yes</button>
-              <button type="button" onClick={() => handleOptionClick('injured', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-200 hover:border-primary">No</button>
+              <button type="button" onClick={() => handleOptionClick('injured', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-[#333] hover:bg-gray-50">Yes</button>
+              <button type="button" onClick={() => handleOptionClick('injured', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-[#333] hover:bg-gray-50">No</button>
             </div>
           </div>
         )}

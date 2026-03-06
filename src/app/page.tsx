@@ -86,74 +86,87 @@ export default function Home() {
       <StickyContactBar />
       
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center bg-primary text-white overflow-hidden pt-12">
-        {/* Background Overlay with Responsive Variants */}
-        <div className="absolute inset-0 z-0">
-          <picture>
-            <source 
-              srcSet={`${heroVariant.image}&fm=webp&w=640 640w, ${heroVariant.image}&fm=webp&w=1280 1280w, ${heroVariant.image}&fm=webp&w=2560 2560w`}
-              sizes="100vw"
-              type="image/webp"
-            />
-            <img 
-               src={`${heroVariant.image}&w=2560`}
-               alt={heroVariant.alt}
-               className="absolute inset-0 w-full h-full object-cover opacity-50 transition-opacity duration-1000"
-               style={{ objectPosition: 'center' }}
-               loading="eager"
-             />
-          </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
-          <div className="absolute inset-0 bg-black/40" /> {/* Darkening overlay for contrast */}
+      <section className="relative min-h-[90vh] flex flex-col bg-primary text-white overflow-hidden">
+        {/* Banner */}
+        <div className="w-full bg-accent py-4 text-primary text-center relative z-20 shadow-lg">
+          <h1 className="text-2xl md:text-4xl font-black tracking-tighter uppercase leading-none">
+            INJURED IN A TRUCK ACCIDENT? <span className="font-playfair italic normal-case ml-2 font-bold">RigAccident MatchingSystem</span>
+          </h1>
         </div>
-        
-        <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-20 items-center py-12">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 bg-primary border border-accent/30 px-3 py-1 rounded-full mb-6">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <span className="text-white text-xs font-bold uppercase tracking-widest">Free Lawyer Matching System</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Injured in a Truck Accident? <br />
-              <span className="text-accent text-glow">You May Be Entitled to Significant Compensation.</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
-              Get Matched With an Experienced Truck Accident Lawyer in Minutes. <br />
-              <span className="font-bold text-white">Free Case Review • No Fee Unless You Win • 100% Confidential</span>
-            </p>
-            
-            <div className="hidden md:block mb-12">
-                <TrustBadges />
-            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a 
-                href="#lead-form"
-                className="bg-accent hover:bg-opacity-90 text-primary font-bold px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl flex-1"
-              >
-                Get Matched with a Lawyer
-              </a>
-            </div>
-
-            <div className="mb-12">
-                <a 
-                    href="#calculator"
-                    className="inline-flex items-center space-x-2 text-white hover:text-accent font-bold transition-colors group"
-                >
-                    <span className="border-b-2 border-accent group-hover:border-white">Estimate Claim Value</span>
-                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                </a>
-            </div>
-
-            <p className="text-sm text-gray-400 mt-4 italic">
-              Speak with a local truck accident specialist. No cost, no obligation.
-            </p>
+        <div className="flex-1 relative flex items-center pt-12">
+          {/* Background Overlay with Responsive Variants */}
+          <div className="absolute inset-0 z-0">
+            <picture>
+              <source 
+                srcSet="/big-rig-accident-hero.jpg"
+                sizes="100vw"
+                type="image/jpeg"
+              />
+              <img 
+                 src="/big-rig-accident-hero.jpg"
+                 alt="Dramatic scene of a semi-truck accident"
+                 className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-1000"
+                 style={{ objectPosition: 'center' }}
+                 loading="eager"
+               />
+            </picture>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent" />
+            <div className="absolute inset-0 bg-black/40" /> {/* Darkening overlay for contrast */}
           </div>
+          
+          <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-20 items-center py-12">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center space-x-2 bg-primary border border-accent/30 px-3 py-1 rounded-full mb-6">
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                <span className="text-white text-xs font-bold uppercase tracking-widest">Free Lawyer Matching System</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Injured in a Truck Accident? <br />
+                <span className="text-accent text-glow">You May Be Entitled to Significant Compensation.</span>
+              </h2>
+              <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+                Get Matched With an Experienced Truck Accident Lawyer in Minutes. <br />
+                <span className="font-bold text-white">Free Case Review • No Fee Unless You Win • 100% Confidential</span>
+              </p>
+              
+              <div className="hidden md:block mb-12">
+                  <TrustBadges />
+              </div>
 
-          <div className="hidden md:block">
-            <LeadForm />
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <a 
+                  href="#lead-form"
+                  className="bg-accent hover:bg-opacity-90 text-primary font-bold px-8 py-4 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl flex-1"
+                >
+                  Get Matched with a Lawyer
+                </a>
+              </div>
+
+              <div className="mb-12">
+                  <a 
+                      href="#calculator"
+                      className="inline-flex items-center space-x-2 text-white hover:text-accent font-bold transition-colors group"
+                  >
+                      <span className="border-b-2 border-accent group-hover:border-white">Estimate Claim Value</span>
+                      <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                  </a>
+              </div>
+
+              <p className="text-sm text-gray-400 mt-4 italic">
+                Speak with a local truck accident specialist. No cost, no obligation.
+              </p>
+            </div>
+
+            <div className="hidden md:block">
+              <div className="mb-8 text-center md:text-left">
+                <h3 className="text-3xl font-bold mb-4 text-white">Get Matched with a Truck Accident Lawyer</h3>
+                <p className="text-white/80 text-lg leading-relaxed max-w-xl">Our system connects accident victims with experienced truck accident attorneys. Your consultation is free and confidential.</p>
+              </div>
+              <LeadForm />
+            </div>
           </div>
         </div>
       </section>
@@ -210,6 +223,10 @@ export default function Home() {
       {/* Mobile Form Section (Visible only on mobile) */}
       <section className="md:hidden py-16 bg-white px-4">
         <div className="max-w-lg mx-auto">
+          <div className="mb-8 text-center">
+            <h3 className="text-2xl font-bold mb-4 text-primary">Get Matched with a Truck Accident Lawyer</h3>
+            <p className="text-gray-600 leading-relaxed">Our system connects accident victims with experienced truck accident attorneys. Your consultation is free and confidential.</p>
+          </div>
           <LeadForm />
         </div>
       </section>
@@ -219,7 +236,7 @@ export default function Home() {
         {/* Background Image for Trust Section */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=2560&auto=format&fit=crop" 
+            src="/truck-accident-2.jpg" 
             alt="Professional responders at a commercial vehicle accident site"
             className="w-full h-full object-cover opacity-10"
             loading="lazy"
@@ -308,7 +325,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <p className="mb-4 font-bold text-white">RigAccident.com</p>
           <p className="text-sm max-w-2xl mx-auto mb-8" style={{ color: '#FDF6E3' }}>
-            RigAccident.com is a lawyer matching service. We connect victims with independent attorneys. We are not a law firm and do not provide legal advice. Consultations are provided by third-party lawyers.
+            RigAccident.com is a lawyer matching service. We connect accident victims with independent attorneys who may review their case. RigAccident.com is not a law firm and does not provide legal advice. Consultations are provided by independent attorneys.
           </p>
           
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm font-medium">
@@ -316,6 +333,7 @@ export default function Home() {
             <Link href="/cookies" className="hover:text-accent transition-colors">Cookie Policy</Link>
             <Link href="/ai-disclosure" className="hover:text-accent transition-colors">AI Disclosure</Link>
             <Link href="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
+            <Link href="/attorney-advertising-disclosure" className="hover:text-accent transition-colors">Attorney Advertising Disclosure</Link>
           </div>
 
           <p className="mt-8 text-xs text-white">
