@@ -25,8 +25,13 @@ export default function StickyContactBar() {
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-[56px] md:h-[48px]">
-        <div className="hidden md:block text-white font-bold text-sm lg:text-base">
-          Injured in a Truck or Rig Accident?
+        <div className="hidden md:flex items-center space-x-6">
+          <div className="text-white font-bold text-sm lg:text-base">
+            Injured in a Truck or Rig Accident?
+          </div>
+          <a href="/for-attorneys" className="text-white/80 hover:text-white underline text-xs font-semibold tracking-wide">
+            For Attorneys
+          </a>
         </div>
         <div className="flex-1 md:flex-none flex justify-center md:justify-end">
           <a 

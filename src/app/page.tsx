@@ -64,6 +64,7 @@ const HERO_VARIANTS = [
 export default function Home() {
   const [selectedFeature, setSelectedFeature] = useState<typeof FEATURES[0] | null>(null);
   const [heroVariant, setHeroVariant] = useState(HERO_VARIANTS[0]);
+  const [expandedCase, setExpandedCase] = useState<number | null>(null);
 
   useEffect(() => {
      // Simple A/B testing logic
@@ -286,23 +287,49 @@ export default function Home() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-16">Common Truck Accident Cases We Handle</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-left">
-            {[
-              '18-Wheeler Collisions', 
-              'Jackknife Accidents', 
-              'Underride Accidents', 
-              'Driver Fatigue Accidents', 
-              'Overloaded Truck Accidents', 
-              'Rear-End Truck Collisions'
-            ].map((type) => (
-              <div key={type} className="flex items-center space-x-4">
-                <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </div>
-                <span className="font-semibold text-gray-700">{type}</span>
-              </div>
-            ))}
-          </div>
+          {(() => {
+            const CASES = [
+              { title: '18-Wheeler Collisions', desc: 'Multi-axle impacts; braking distance and load distribution issues.', bullets: ['Longer stopping distance', 'Load shift investigations'] },
+              { title: 'Jackknife Accidents', desc: 'Trailer swing-out; often tied to improper braking.', bullets: ['ABS and brake logs', 'Road surface conditions'] },
+              { title: 'Underride Accidents', desc: 'Rear/side underruns; lighting or guard failures.', bullets: ['Guard/reflector compliance', 'Night visibility analysis'] },
+              { title: 'Driver Fatigue Accidents', desc: 'Hours-of-service violations; ELD/logbook review.', bullets: ['ELD data review', 'Scheduling practices'] },
+              { title: 'Overloaded Truck Accidents', desc: 'Excess weight; securement audits and weigh station data.', bullets: ['Load securement', 'Weigh station records'] },
+              { title: 'Rear-End Truck Collisions', desc: 'Stopping distance and following distance; dash cam and ECU.', bullets: ['ECU/telematics data', 'Dash cam evidence'] },
+            ];
+            return (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-left">
+                {CASES.map((c, idx) => (
+                  <li key={c.title} className="border border-gray-200 rounded-2xl p-4 hover:shadow-sm transition-shadow">
+                    <button
+                      type="button"
+                      aria-expanded={expandedCase === idx}
+                      onClick={() => setExpandedCase(expandedCase === idx ? null : idx)}
+                      className="w-full flex items-center justify-between text-left"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                        </div>
+                        <span className="font-bold text-gray-900">{c.title}</span>
+                      </div>
+                      <svg className={`w-5 h-5 text-gray-500 transition-transform ${expandedCase === idx ? 'rotate-90' : ''}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M6 6l6 4-6 4V6z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    <div className={`${expandedCase === idx ? 'mt-3' : 'sr-only'}`}>
+                      <p className="text-sm text-gray-700 mb-2">{c.desc}</p>
+                      <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                        {c.bullets.map(b => <li key={b}>{b}</li>)}
+                      </ul>
+                      <a href="#lead-form" className="inline-block mt-3 text-sm font-bold underline underline-offset-4 hover:opacity-80">
+                        Do you have this case?
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            );
+          })()}
         </div>
       </section>
 
@@ -334,6 +361,7 @@ export default function Home() {
             <Link href="/ai-disclosure" className="hover:text-accent transition-colors">AI Disclosure</Link>
             <Link href="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
             <Link href="/attorney-advertising-disclosure" className="hover:text-accent transition-colors">Attorney Advertising Disclosure</Link>
+            <Link href="/for-attorneys" className="hover:text-accent transition-colors">For Attorneys</Link>
           </div>
 
           <p className="mt-8 text-xs text-white">
