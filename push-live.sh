@@ -290,9 +290,15 @@ fi
 log_section "Commit message generation"
 
 if [ -f "$AI_COMMIT_SCRIPT" ]; then
-
-    COMMIT_MSG=$("$AI_COMMIT_SCRIPT")
-
+    set +e
+    COMMIT_MSG=$(OLLAMA_NO_MLX=1 "$AI_COMMIT_SCRIPT" 2>/dev/null)
+    STATUS=$?
+    set -e
+    if [ $STATUS -ne 0 ] || [ -z "$COMMIT_MSG" ]; then
+      log_warn "AI commit tool failed or returned empty message; using fallback"
+      TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+      COMMIT_MSG="chore: update project files ($TIMESTAMP)"
+    fi
 else
 
     log_warn "AI commit tool not found"
