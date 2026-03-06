@@ -1,4 +1,6 @@
 #!/bin/bash
+set -Eeuo pipefail
+IFS=$'\n\t'
 
 ############################################################
 # push-live.sh
@@ -20,23 +22,34 @@
 # Configuration
 ########################################
 
-MAIN_BRANCH="main"
-MAX_FILE_SIZE_KB=1024
+readonly MAIN_BRANCH="main"
+readonly ALLOWED_BRANCHES=("main")  # Add more like "release/.*" if desired
+readonly MAX_FILE_SIZE_KB=1024
 
-AI_COMMIT_SCRIPT="$HOME/dev-tools/ai-commit.sh"
+readonly AI_COMMIT_SCRIPT="$HOME/dev-tools/ai-commit.sh"
 
 ENABLE_SECRET_ENTROPY_SCAN=true
 ENABLE_AI_RISK_SCAN=true
 
+# Content-level secret patterns (regex, case-insensitive)
 SENSITIVE_PATTERNS=(
-"password"
-"api_key"
-"secret"
-"token"
-"credentials"
-"private_key"
-"AKIA"
-"BEGIN RSA PRIVATE KEY"
+  "\\bpassword\\b"
+  "\\bapi[_-]?key\\b"
+  "\\bsecret\\b"
+  "\\btoken\\b"
+  "\\bcredentials?\\b"
+  "\\bprivate[_-]?key\\b"
+  "AKIA[0-9A-Z]{16}"
+  "BEGIN RSA PRIVATE KEY"
+)
+
+# Filename-level indicators (regex, case-insensitive)
+FILENAME_SENSITIVE_PATTERNS=(
+  "\\.env(\\.|$)"
+  "id_rsa"
+  "private"
+  "secret"
+  "credentials"
 )
 
 ########################################
@@ -65,12 +78,27 @@ if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     exit 1
 fi
 
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT"
+
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-if [ "$CURRENT_BRANCH" != "$MAIN_BRANCH" ]; then
-    log_error "Current branch: $CURRENT_BRANCH"
-    log_error "This script only pushes $MAIN_BRANCH"
-    exit 1
+# Branch policy: allow a list with confirm if not matched
+is_allowed=false
+for b in "${ALLOWED_BRANCHES[@]}"; do
+  if [[ "$CURRENT_BRANCH" =~ ^$b$ ]]; then
+    is_allowed=true
+    break
+  fi
+done
+
+if [ "$is_allowed" = false ]; then
+    log_warn "Current branch: $CURRENT_BRANCH is not in allowed list"
+    read -p "Proceed with deployment from '$CURRENT_BRANCH'? (y/N) " confirm
+    if [[ ! $confirm =~ ^[Yy]$ ]]; then
+        log_error "Push aborted due to branch policy"
+        exit 1
+    fi
 fi
 
 ########################################
@@ -79,7 +107,13 @@ fi
 
 log_section "Large file scan"
 
-LARGE_FILES=$(find . -type f -not -path '*/.*' -size +${MAX_FILE_SIZE_KB}k)
+LARGE_FILES=$(find . \
+  -path './.git' -prune -o \
+  -path './node_modules' -prune -o \
+  -path './.next' -prune -o \
+  -path './out' -prune -o \
+  -path './build' -prune -o \
+  -type f -size +"${MAX_FILE_SIZE_KB}"k -print)
 
 if [ ! -z "$LARGE_FILES" ]; then
 
@@ -116,7 +150,7 @@ log_section "Sensitive pattern scan"
 
 for pattern in "${SENSITIVE_PATTERNS[@]}"; do
 
-    if git diff --staged | grep -qi "$pattern"; then
+    if git diff --staged | grep -Eqi "$pattern"; then
 
         log_warn "Possible secret detected: $pattern"
 
@@ -131,6 +165,22 @@ for pattern in "${SENSITIVE_PATTERNS[@]}"; do
 
 done
 
+# Filenames scan (staged)
+STAGED_FILES=$(git diff --cached --name-only || true)
+if [ -n "${STAGED_FILES}" ]; then
+  for pattern in "${FILENAME_SENSITIVE_PATTERNS[@]}"; do
+    if echo "$STAGED_FILES" | grep -Eqi "$pattern"; then
+      log_warn "Suspicious filename pattern detected: $pattern"
+      echo "$STAGED_FILES" | grep -Ei "$pattern" || true
+      read -p "Continue anyway? (y/N) " confirm
+      if [[ ! $confirm =~ ^[Yy]$ ]]; then
+        log_error "Push aborted"
+        exit 1
+      fi
+    fi
+  done
+fi
+
 ########################################
 # Optional Entropy Secret Detection
 ########################################
@@ -139,19 +189,27 @@ if [ "$ENABLE_SECRET_ENTROPY_SCAN" = true ]; then
 
 log_section "Entropy based secret scan"
 
-HIGH_ENTROPY=$(git diff --staged | grep -E "[A-Za-z0-9+/]{40,}")
+TEXT_EXTS='(js|jsx|ts|tsx|css|scss|sass|html|md|mdx|yml|yaml|json|sh|py|rb|go|rs|java|kt|mjs|cjs|conf|env|txt)$'
+FILES_FOR_ENTROPY=$(git diff --cached --name-only | grep -E "$TEXT_EXTS" || true)
 
-if [ ! -z "$HIGH_ENTROPY" ]; then
-
-    log_warn "Possible high entropy secrets detected"
-
-    read -p "Continue? (y/N) " confirm
-
-    if [[ ! $confirm =~ ^[Yy]$ ]]; then
-        log_error "Push aborted"
-        exit 1
+FOUND_ENTROPY=false
+if [ -n "$FILES_FOR_ENTROPY" ]; then
+  while read -r f; do
+    [ -z "$f" ] && continue
+    if git show ":$f" | grep -E "[A-Za-z0-9+/]{40,}" >/dev/null; then
+      echo "High entropy content found in: $f"
+      FOUND_ENTROPY=true
     fi
+  done <<< "$FILES_FOR_ENTROPY"
+fi
 
+if [ "$FOUND_ENTROPY" = true ]; then
+  log_warn "Possible high entropy secrets detected"
+  read -p "Continue? (y/N) " confirm
+  if [[ ! $confirm =~ ^[Yy]$ ]]; then
+      log_error "Push aborted"
+      exit 1
+  fi
 fi
 
 fi
@@ -227,9 +285,20 @@ log_info "Commit: $COMMIT_MSG"
 # Commit
 ########################################
 
-if ! git commit -m "$COMMIT_MSG"; then
-    log_error "Commit failed"
-    exit 1
+# Support multi-line commit messages: first line title, rest body
+COMMIT_TITLE="$(printf '%s\n' "$COMMIT_MSG" | head -n 1)"
+COMMIT_BODY="$(printf '%s\n' "$COMMIT_MSG" | tail -n +2 || true)"
+
+if [ -n "$COMMIT_BODY" ]; then
+    if ! git commit -m "$COMMIT_TITLE" -m "$COMMIT_BODY"; then
+        log_error "Commit failed"
+        exit 1
+    fi
+else
+    if ! git commit -m "$COMMIT_TITLE"; then
+        log_error "Commit failed"
+        exit 1
+    fi
 fi
 
 ########################################
