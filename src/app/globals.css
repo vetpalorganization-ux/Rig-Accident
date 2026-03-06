@@ -6,6 +6,12 @@
   --color-secondary: #F5F7FA;
   --font-headline: var(--font-playfair);
   --font-body: var(--font-inter);
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  --animate-bounce-subtle: bounce-subtle 2s infinite ease-in-out;
 }
 
 :root {
