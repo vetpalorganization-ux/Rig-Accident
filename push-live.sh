@@ -30,6 +30,7 @@ readonly AI_COMMIT_SCRIPT="$HOME/dev-tools/ai-commit.sh"
 
 ENABLE_SECRET_ENTROPY_SCAN=true
 ENABLE_AI_RISK_SCAN=true
+NO_PUSH=false
 
 # Content-level secret patterns (regex, case-insensitive)
 SENSITIVE_PATTERNS=(
@@ -66,6 +67,28 @@ log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 log_section() { echo -e "${BLUE}== $1 ==${NC}"; }
+
+########################################
+# CLI Flags
+########################################
+
+for arg in "$@"; do
+  case "$arg" in
+    --no-push)
+      NO_PUSH=true
+      ;;
+    -h|--help)
+      cat <<EOF
+Usage: push-live.sh [--no-push] [--help]
+  --no-push   Run all checks and build, but skip git push
+  --help      Show this help and exit
+EOF
+      exit 0
+      ;;
+    *)
+      ;;
+  esac
+done
 
 ########################################
 # Git Validation
@@ -326,9 +349,13 @@ fi
 
 log_section "Pushing to remote"
 
-if ! git push origin "$MAIN_BRANCH"; then
-    log_error "Push failed"
-    exit 1
+if [ "$NO_PUSH" = true ]; then
+    log_warn "Skipping push due to --no-push flag"
+else
+    if ! git push origin "$MAIN_BRANCH"; then
+        log_error "Push failed"
+        exit 1
+    fi
 fi
 
 ########################################
