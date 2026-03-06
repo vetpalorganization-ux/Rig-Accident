@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
+import QuoteSlider from '@/components/QuoteSlider';
+import FAQ from '@/components/FAQ';
+import StateGrid from '@/components/StateGrid';
  
  export default function ForAttorneysPage() {
    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -71,7 +74,7 @@ import { trackEvent } from '@/lib/analytics';
         </div>
       </header>
 
-      <section className="bg-primary text-white py-16">
+      <section className="bg-primary text-white pt-[164px] pb-[164px]">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-flex items-center space-x-2 bg-white/10 px-3 py-1 rounded-full mb-4">
             <span className="w-2 h-2 bg-accent rounded-full" />
@@ -79,37 +82,45 @@ import { trackEvent } from '@/lib/analytics';
           </div>
           <h1 className="text-3xl md:text-5xl font-bold mb-3">Join the RigAccident Attorney Network</h1>
           <p className="text-white/80 max-w-2xl mx-auto">Receive pre-screened truck accident inquiries in your licensed states. No upfront fees. We will call you back within 24 hours.</p>
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-8 flex justify-center gap-6">
             <a href="#attorney-form" onClick={() => trackEvent('attorney_cta_click', { location: 'hero' })} className="bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-accent/90 transition-colors">Request Network Access</a>
             <a href="mailto:partners@rigaccident.com?subject=Attorney%20Network%20Inquiry&body=Firm%20Name:%0AContact%20Name:%0APhone:%0AEmail:%0AWebsite:%0ALicensed%20States:%0APractice%20Areas:%0ANotes:" onClick={() => trackEvent('attorney_email_click', { location: 'hero' })} className="bg-white/10 text-white font-bold px-6 py-3 rounded-xl hover:bg-white/20 transition-colors">Email Us</a>
-            <Link href="/" className="text-white/80 hover:text-white underline underline-offset-4 font-semibold">Back to Home</Link>
           </div>
         </div>
       </section>
 
-      <section className="py-10">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="border border-gray-200 rounded-2xl p-6">
+            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1589827189158-3d310e6f7f6a?q=80&w=1200&auto=format&fit=crop" alt="Pre-screened inquiry review" className="w-full h-36 object-cover" />
+              <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Pre-Screened Inquiries</h3>
               <p className="text-gray-700 text-sm">Intake captures essentials: state, truck involvement, injury severity, and economic losses.</p>
+              </div>
             </div>
-            <div className="border border-gray-200 rounded-2xl p-6">
+            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop" alt="Territory control" className="w-full h-36 object-cover" />
+              <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Territory Control</h3>
               <p className="text-gray-700 text-sm">Select states and case types to align with your capacity and expertise.</p>
+              </div>
             </div>
-            <div className="border border-gray-200 rounded-2xl p-6">
+            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="No upfront fees" className="w-full h-36 object-cover" />
+              <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">No Upfront Fees</h3>
               <p className="text-gray-700 text-sm">Performance-driven model; focus on qualified conversations, not clicks.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-8">
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -117,17 +128,13 @@ import { trackEvent } from '@/lib/analytics';
                 <h3 className="font-bold text-xl text-gray-900">Where We’re Actively Onboarding</h3>
                 <p className="text-gray-700 text-sm">We’re currently prioritizing onboarding for the following states. If yours isn’t listed, apply anyway and we’ll follow up.</p>
               </div>
-              <ul className="grid grid-cols-3 sm:grid-cols-5 gap-2 text-sm">
-                {['TX','FL','CA','NY','IL','GA','PA','OH','NC','AZ','MI','TN','MO','CO','WA'].map(s => (
-                  <li key={s} className="border border-gray-200 rounded-lg py-2 text-center text-gray-900">{s}</li>
-                ))}
-              </ul>
+              <StateGrid />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-8">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -145,7 +152,13 @@ import { trackEvent } from '@/lib/analytics';
         </div>
       </section>
 
-      <section className="py-8 bg-secondary">
+      <section className="py-12 bg-secondary">
+        <div className="container mx-auto px-4">
+          <QuoteSlider />
+        </div>
+      </section>
+
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
@@ -172,7 +185,7 @@ import { trackEvent } from '@/lib/analytics';
         </div>
       </section>
  
-       <section className="py-12">
+      <section className="py-12 bg-white">
          <div className="container mx-auto px-4">
           {status === 'success' ? (
              <div className="max-w-2xl mx-auto bg-green-50 border border-green-100 p-8 rounded-2xl text-center">
@@ -233,7 +246,7 @@ import { trackEvent } from '@/lib/analytics';
          </div>
        </section>
 
-      <section className="py-8">
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-gray-200 rounded-2xl p-6">
@@ -256,6 +269,12 @@ import { trackEvent } from '@/lib/analytics';
           <div className="mt-6 text-center">
             <a href="#attorney-form" onClick={() => trackEvent('attorney_cta_click', { location: 'faq' })} className="inline-block bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-accent/90 transition-colors">Get Started</a>
           </div>
+        </div>
+      </section>
+
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <FAQ headline="Attorney Network FAQs" />
         </div>
       </section>
 

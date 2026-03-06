@@ -87,7 +87,7 @@ export default function Home() {
       <StickyContactBar />
       
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col bg-primary text-white overflow-hidden">
+      <section className="relative min-h-[calc(90vh+200px)] flex flex-col bg-primary text-white overflow-hidden">
         {/* Banner */}
         <div className="w-full bg-accent py-4 text-primary text-center relative z-20 shadow-lg">
           <h1 className="text-2xl md:text-4xl font-black tracking-tighter uppercase leading-none">
@@ -116,7 +116,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/40" /> {/* Darkening overlay for contrast */}
           </div>
           
-          <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-20 items-center py-12">
+          <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-24 items-center py-16">
             <div className="max-w-2xl">
               <div className="inline-flex items-center space-x-2 bg-primary border border-accent/30 px-3 py-1 rounded-full mb-6">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
@@ -131,7 +131,7 @@ export default function Home() {
                 <span className="font-bold text-white">Free Case Review • No Fee Unless You Win • 100% Confidential</span>
               </p>
               
-              <div className="hidden md:block mb-12">
+              <div className="hidden md:block mb-16">
                   <TrustBadges />
               </div>
 
@@ -297,14 +297,20 @@ export default function Home() {
               { title: 'Rear-End Truck Collisions', desc: 'Stopping distance and following distance; dash cam and ECU.', bullets: ['ECU/telematics data', 'Dash cam evidence'] },
             ];
             return (
-              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-left">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-left">
                 {CASES.map((c, idx) => (
-                  <li key={c.title} className="border border-gray-200 rounded-2xl p-4 hover:shadow-sm transition-shadow">
+                  <li key={c.title} className="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow bg-white">
+                    <img
+                      src={`https://images.unsplash.com/photo-1518554888066-3d66c6c56d6f?q=80&w=1200&auto=format&fit=crop&ixid=${idx}`}
+                      alt={c.title}
+                      className="w-full h-32 object-cover"
+                      loading="lazy"
+                    />
                     <button
                       type="button"
                       aria-expanded={expandedCase === idx}
                       onClick={() => setExpandedCase(expandedCase === idx ? null : idx)}
-                      className="w-full flex items-center justify-between text-left"
+                      className="w-full flex items-center justify-between text-left p-4"
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center shrink-0">
@@ -316,7 +322,7 @@ export default function Home() {
                         <path fillRule="evenodd" d="M6 6l6 4-6 4V6z" clipRule="evenodd" />
                       </svg>
                     </button>
-                    <div className={`${expandedCase === idx ? 'mt-3' : 'sr-only'}`}>
+                    <div className={`${expandedCase === idx ? 'px-4 pb-4' : 'sr-only'}`}>
                       <p className="text-sm text-gray-700 mb-2">{c.desc}</p>
                       <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
                         {c.bullets.map(b => <li key={b}>{b}</li>)}
@@ -334,10 +340,10 @@ export default function Home() {
       </section>
 
       {/* Final CTA Block */}
-      <section className="bg-primary text-white py-24">
+      <section className="bg-secondary text-primary py-24">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Speak With a Truck Accident Lawyer Today</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Free Case Review • No Fee Unless You Win • 100% Confidential</p>
+          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">Free Case Review • No Fee Unless You Win • 100% Confidential</p>
           <a 
             href="#lead-form"
             className="bg-accent hover:bg-opacity-90 text-primary font-bold px-12 py-5 rounded-xl transition duration-300 text-center uppercase tracking-wider text-lg shadow-xl"
