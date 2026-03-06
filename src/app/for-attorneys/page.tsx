@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
-import QuoteSlider from '@/components/QuoteSlider';
 import FAQ from '@/components/FAQ';
 import StateGrid from '@/components/StateGrid';
  
@@ -93,7 +93,15 @@ import StateGrid from '@/components/StateGrid';
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
-              <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Pre-screened inquiry review" className="w-full h-36 object-cover" />
+              <div className="relative w-full h-36">
+                <Image
+                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+                  alt="Pre-screened inquiry review"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Pre-Screened Inquiries</h3>
@@ -101,7 +109,15 @@ import StateGrid from '@/components/StateGrid';
               </div>
             </div>
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
-              <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop" alt="Territory control" className="w-full h-36 object-cover" />
+              <div className="relative w-full h-36">
+                <Image
+                  src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop"
+                  alt="Territory control"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Territory Control</h3>
@@ -109,7 +125,15 @@ import StateGrid from '@/components/StateGrid';
               </div>
             </div>
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
-              <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="No upfront fees" className="w-full h-36 object-cover" />
+              <div className="relative w-full h-36">
+                <Image
+                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop"
+                  alt="No upfront fees"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">No Upfront Fees</h3>
@@ -125,8 +149,10 @@ import StateGrid from '@/components/StateGrid';
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <div className="grid md:grid-cols-2 gap-6 items-stretch">
               <div className="space-y-3 text-left flex flex-col h-full">
-                <h3 className="font-bold text-xl text-gray-900">Where We’re Actively Onboarding</h3>
-                <p className="text-gray-700 text-sm">We’re currently prioritizing onboarding for the following states. If yours isn’t listed, apply anyway and we’ll follow up.</p>
+                <h3 className="font-bold text-xl text-gray-900">Why Top Firms Join Our Network</h3>
+                <p className="text-gray-700 text-sm">
+                  Pre‑screened truck‑accident inquiries matched to your licensed states. We verify key facts (truck involvement, severity, economic losses) so your team focuses on qualified conversations. No upfront fees, flexible pacing, and fast 24‑hour callbacks. Trusted by regional and multistate firms seeking consistent, high‑quality case opportunities.
+                </p>
                 <ol className="list-decimal pl-5 space-y-1 text-sm text-gray-700">
                   <li>Apply with firm details and practice focus</li>
                   <li>Verify licensing, routing, and capacity</li>
@@ -145,23 +171,7 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-5 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="bg-white border border-gray-200 rounded-2xl p-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="italic text-gray-800">“The intake quality has been excellent and aligned with our trucking docket. Our team appreciates the concise case summaries.”</div>
-                <div className="text-xs text-gray-500">— Partner, Regional PI Firm</div>
-              </div>
-              <div className="space-y-4">
-                <div className="italic text-gray-800">“Coverage targeting by state and case type made onboarding simple. We can scale volume when our capacity increases.”</div>
-                <div className="text-xs text-gray-500">— Intake Director, Multistate Firm</div>
-              </div>
-            </div>
-            <p className="text-[11px] text-gray-500 mt-4">Testimonials reflect individual experiences; results vary by firm and market conditions.</p>
-          </div>
-        </div>
-      </section>
+      {/* Testimonials section removed per request */}
 
       {/* Removed slider section per request to streamline content */}
 
@@ -204,8 +214,14 @@ import StateGrid from '@/components/StateGrid';
              </div>
            ) : (
             <div id="attorney-form" className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-              <div className="hidden md:block">
-                <img src="https://images.unsplash.com/photo-1496268280706-ec91c5e133c9?q=80&w=1200&auto=format&fit=crop" alt="Attorney onboarding" className="w-full h-full object-cover rounded-2xl border border-gray-200" />
+              <div className="hidden md:block relative w-full h-full min-h-[360px]">
+                <Image
+                  src="https://images.unsplash.com/photo-1496268280706-ec91c5e133c9?q=80&w=1200&auto=format&fit=crop"
+                  alt="Attorney onboarding"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover rounded-2xl border border-gray-200"
+                />
               </div>
               <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-6 h-full">
                 <div>
@@ -258,31 +274,7 @@ import StateGrid from '@/components/StateGrid';
          </div>
        </section>
 
-      <section className="py-5 bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="border border-gray-200 rounded-2xl p-6">
-              <h3 className="font-bold text-lg mb-2 text-gray-900">What types of inquiries will I receive?</h3>
-              <p className="text-gray-700 text-sm">Commercial truck accidents prioritized by severity and economic losses. Non-truck cases can be filtered.</p>
-            </div>
-            <div className="border border-gray-200 rounded-2xl p-6">
-              <h3 className="font-bold text-lg mb-2 text-gray-900">Can I choose states and volume?</h3>
-              <p className="text-gray-700 text-sm">Yes. Configure licensed states and pacing so your team can respond quickly.</p>
-            </div>
-            <div className="border border-gray-200 rounded-2xl p-6">
-              <h3 className="font-bold text-lg mb-2 text-gray-900">How are inquiries delivered?</h3>
-              <p className="text-gray-700 text-sm">Direct phone or email handoff. Optional CRM integration can be discussed.</p>
-            </div>
-            <div className="border border-gray-200 rounded-2xl p-6">
-              <h3 className="font-bold text-lg mb-2 text-gray-900">What does it cost?</h3>
-              <p className="text-gray-700 text-sm">No upfront fees. Performance-based arrangements aligned to your preferences.</p>
-            </div>
-          </div>
-          <div className="mt-6 text-center">
-            <a href="#attorney-form" onClick={() => trackEvent('attorney_cta_click', { location: 'faq' })} className="inline-block bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-accent/90 transition-colors">Get Started</a>
-          </div>
-        </div>
-      </section>
+      {/* FAQ card grid section and its button removed per request */}
 
       <section className="py-5 bg-white">
         <div className="container mx-auto px-4">

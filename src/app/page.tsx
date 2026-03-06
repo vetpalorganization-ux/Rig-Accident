@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import LeadForm from "@/components/LeadForm";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import StickyContactBar from "@/components/StickyContactBar";
@@ -11,6 +11,7 @@ import ChatWidget from "@/components/ChatWidget";
 import FeatureModal from "@/components/FeatureModal";
 import CookieConsent from "@/components/CookieConsent";
 import Link from 'next/link';
+import Image from 'next/image';
 
 const FEATURES = [
   {
@@ -48,39 +49,11 @@ const FEATURES = [
   }
 ];
 
-const HERO_VARIANTS = [
-  {
-    id: 'variant-a',
-    image: 'https://images.unsplash.com/photo-1529148532222-293c24360a2b?q=80&w=2560&auto=format&fit=crop',
-    alt: 'Large commercial truck driving on a highway'
-  },
-  {
-    id: 'variant-b',
-    image: 'https://images.unsplash.com/photo-1578509321557-b08a9ed2a4b7?q=80&w=2560&auto=format&fit=crop',
-    alt: 'Front view of a large semi-truck on the road'
-  }
-];
+ 
 
 export default function Home() {
   const [selectedFeature, setSelectedFeature] = useState<typeof FEATURES[0] | null>(null);
-  const [heroVariant, setHeroVariant] = useState(HERO_VARIANTS[0]);
   const [expandedCase, setExpandedCase] = useState<number | null>(null);
-
-  useEffect(() => {
-     // Simple A/B testing logic
-     let variant = localStorage.getItem('hero-ab-variant');
-     if (!variant) {
-       variant = Math.random() > 0.5 ? 'variant-a' : 'variant-b';
-       localStorage.setItem('hero-ab-variant', variant);
-     }
-     const selected = HERO_VARIANTS.find(v => v.id === variant) || HERO_VARIANTS[0];
-     
-     // Move to next tick to avoid cascading render lint error
-     const timer = setTimeout(() => {
-       setHeroVariant(selected);
-     }, 0);
-     return () => clearTimeout(timer);
-   }, []);
 
   return (
     <main className="min-h-screen">
@@ -176,11 +149,13 @@ export default function Home() {
       <section id="calculator" className="py-24 relative overflow-hidden">
         {/* Background Image for Calculator */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src="https://images.unsplash.com/photo-1614035030394-b6e5b01e0737?q=80&w=2560&auto=format&fit=crop" 
             alt="Dramatic scene of a semi-truck accident with emergency responders"
-            className="w-full h-full object-cover opacity-20"
-            loading="lazy"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-20"
+            priority={false}
           />
           <div className="absolute inset-0 bg-primary/90" />
         </div>
@@ -236,11 +211,13 @@ export default function Home() {
       <section className="py-24 relative overflow-hidden">
         {/* Background Image for Trust Section */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src="/truck-accident-2.jpg" 
             alt="Professional responders at a commercial vehicle accident site"
-            className="w-full h-full object-cover opacity-10"
-            loading="lazy"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-10"
+            priority={false}
           />
           <div className="absolute inset-0 bg-white/95" />
         </div>
@@ -251,17 +228,14 @@ export default function Home() {
             {FEATURES.map((feature, i) => (
               <div key={i} className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full focus-within:ring-2 focus-within:ring-accent">
                 <div className="relative h-48 overflow-hidden">
-                  <picture>
-                    <source srcSet={`${feature.image}&fm=webp`} type="image/webp" />
-                    <img 
-                      src={feature.image} 
-                      alt={feature.title} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      loading="lazy" 
-                      width="400" 
-                      height="200" 
-                    />
-                  </picture>
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    priority={false}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
                   <div className="absolute bottom-4 left-4 bg-white/70 backdrop-blur-md border border-white/20 p-2 rounded-lg shadow-lg">
                     {feature.icon}
@@ -300,12 +274,16 @@ export default function Home() {
               <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-left">
                 {CASES.map((c, idx) => (
                   <li key={c.title} className="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow bg-white">
-                    <img
-                      src={`https://images.unsplash.com/photo-1518554888066-3d66c6c56d6f?q=80&w=1200&auto=format&fit=crop&ixid=${idx}`}
-                      alt={c.title}
-                      className="w-full h-32 object-cover"
-                      loading="lazy"
-                    />
+                    <div className="relative w-full h-32">
+                      <Image
+                        src={`https://images.unsplash.com/photo-1518554888066-3d66c6c56d6f?q=80&w=1200&auto=format&fit=crop&ixid=${idx}`}
+                        alt={c.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover"
+                        priority={false}
+                      />
+                    </div>
                     <button
                       type="button"
                       aria-expanded={expandedCase === idx}
