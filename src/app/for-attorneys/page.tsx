@@ -89,18 +89,18 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="border border-gray-200 rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1589827189158-3d310e6f7f6a?q=80&w=1200&auto=format&fit=crop" alt="Pre-screened inquiry review" className="w-full h-36 object-cover" />
+            <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
+              <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop" alt="Pre-screened inquiry review" className="w-full h-36 object-cover" />
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
               <h3 className="font-bold text-lg mb-2 text-gray-900">Pre-Screened Inquiries</h3>
               <p className="text-gray-700 text-sm">Intake captures essentials: state, truck involvement, injury severity, and economic losses.</p>
               </div>
             </div>
-            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+            <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop" alt="Territory control" className="w-full h-36 object-cover" />
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
@@ -108,7 +108,7 @@ import StateGrid from '@/components/StateGrid';
               <p className="text-gray-700 text-sm">Select states and case types to align with your capacity and expertise.</p>
               </div>
             </div>
-            <div className="border border-gray-200 rounded-2xl overflow-hidden">
+            <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="No upfront fees" className="w-full h-36 object-cover" />
               <div className="p-6">
               <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">✓</div>
@@ -120,21 +120,32 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-12 bg-secondary">
+      <section className="py-5 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
-            <div className="grid md:grid-cols-2 gap-6 items-center">
-              <div className="space-y-3 text-left">
+            <div className="grid md:grid-cols-2 gap-6 items-stretch">
+              <div className="space-y-3 text-left flex flex-col h-full">
                 <h3 className="font-bold text-xl text-gray-900">Where We’re Actively Onboarding</h3>
                 <p className="text-gray-700 text-sm">We’re currently prioritizing onboarding for the following states. If yours isn’t listed, apply anyway and we’ll follow up.</p>
+                <ol className="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+                  <li>Apply with firm details and practice focus</li>
+                  <li>Verify licensing, routing, and capacity</li>
+                  <li>Go live with targeted coverage</li>
+                  <li>Track weekly summaries and optimize</li>
+                </ol>
+                <div className="mt-auto pt-3">
+                  <a href="#attorney-form" className="inline-block bg-accent text-primary font-bold px-4 py-2 rounded-lg hover:bg-accent/90 transition-colors text-sm">Get Started</a>
+                </div>
               </div>
-              <StateGrid />
+              <div className="h-full flex items-center">
+                <StateGrid />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -152,13 +163,9 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-12 bg-secondary">
-        <div className="container mx-auto px-4">
-          <QuoteSlider />
-        </div>
-      </section>
+      {/* Removed slider section per request to streamline content */}
 
-      <section className="py-12 bg-secondary">
+      <section className="py-5 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
@@ -185,7 +192,7 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
  
-      <section className="py-12 bg-white">
+      <section className="py-5 bg-white">
          <div className="container mx-auto px-4">
           {status === 'success' ? (
              <div className="max-w-2xl mx-auto bg-green-50 border border-green-100 p-8 rounded-2xl text-center">
@@ -196,57 +203,62 @@ import StateGrid from '@/components/StateGrid';
               </p>
              </div>
            ) : (
-            <form id="attorney-form" onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-6">
-               <div>
+            <div id="attorney-form" className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+              <div className="hidden md:block">
+                <img src="https://images.unsplash.com/photo-1496268280706-ec91c5e133c9?q=80&w=1200&auto=format&fit=crop" alt="Attorney onboarding" className="w-full h-full object-cover rounded-2xl border border-gray-200" />
+              </div>
+              <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-6 h-full">
+                <div>
                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Firm Name</label>
                  <input name="firm" required value={form.firm} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="Your firm" />
-               </div>
-               <div className="grid md:grid-cols-2 gap-6">
-                 <div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
                    <label className="block text-sm font-bold uppercase tracking-wider mb-2">Contact Name</label>
                    <input name="contact" required value={form.contact} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="Jane Doe" />
-                 </div>
-                 <div>
+                  </div>
+                  <div>
                    <label className="block text-sm font-bold uppercase tracking-wider mb-2">Phone</label>
                    <input name="phone" required value={form.phone} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="(555) 123-4567" />
-                 </div>
-               </div>
-               <div className="grid md:grid-cols-2 gap-6">
-                 <div>
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
                    <label className="block text-sm font-bold uppercase tracking-wider mb-2">Email</label>
                    <input type="email" name="email" value={form.email} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="contact@firm.com" />
-                 </div>
-                 <div>
+                  </div>
+                  <div>
                    <label className="block text-sm font-bold uppercase tracking-wider mb-2">Website</label>
                    <input name="website" value={form.website} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="https://" />
-                 </div>
-               </div>
-               <div>
+                  </div>
+                </div>
+                <div>
                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Licensed States</label>
                  <input name="states" required value={form.states} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="e.g., TX, FL, CA" />
-               </div>
-               <div>
+                </div>
+                <div>
                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Practice Areas</label>
                  <input name="practice" required value={form.practice} onChange={handleChange} className="w-full border border-black rounded-xl p-4 text-black placeholder:text-black" placeholder="Truck accidents, wrongful death, catastrophic injury" />
-               </div>
-               <input type="text" name="honeypot" value={form.honeypot} onChange={handleChange} className="hidden" tabIndex={-1} autoComplete="off" />
-               
-               <button 
-                 disabled={status === 'loading'}
-                 className="w-full bg-accent text-primary font-bold py-4 rounded-xl hover:bg-accent/90 transition-colors text-lg"
-               >
-                 {status === 'loading' ? 'Submitting...' : 'Request Network Access'}
-               </button>
-              <div className="text-center text-sm text-gray-700">
-                Prefer email? <a className="underline font-semibold" href="mailto:partners@rigaccident.com?subject=Attorney%20Network%20Inquiry&body=Firm%20Name:%0AContact%20Name:%0APhone:%0AEmail:%0AWebsite:%0ALicensed%20States:%0APractice%20Areas:%0ANotes:">partners@rigaccident.com</a> • We will call you back within 24 hours.
-              </div>
-               {status === 'error' && <div className="text-sm text-red-600">Submission failed. Please try again.</div>}
-             </form>
+                </div>
+                <input type="text" name="honeypot" value={form.honeypot} onChange={handleChange} className="hidden" tabIndex={-1} autoComplete="off" />
+                
+                <button 
+                  disabled={status === 'loading'}
+                  className="w-full bg-accent text-primary font-bold py-4 rounded-xl hover:bg-accent/90 transition-colors text-lg"
+                >
+                  {status === 'loading' ? 'Submitting...' : 'Request Network Access'}
+                </button>
+                <div className="text-center text-sm text-gray-700">
+                  Prefer email? <a className="underline font-semibold" href="mailto:partners@rigaccident.com?subject=Attorney%20Network%20Inquiry&body=Firm%20Name:%0AContact%20Name:%0APhone:%0AEmail:%0AWebsite:%0ALicensed%20States:%0APractice%20Areas:%0ANotes:">partners@rigaccident.com</a> • We will call you back within 24 hours.
+                </div>
+                 {status === 'error' && <div className="text-sm text-red-600">Submission failed. Please try again.</div>}
+              </form>
+            </div>
            )}
          </div>
        </section>
 
-      <section className="py-12 bg-secondary">
+      <section className="py-5 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-6">
             <div className="border border-gray-200 rounded-2xl p-6">
@@ -272,9 +284,12 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="py-5 bg-white">
         <div className="container mx-auto px-4">
           <FAQ headline="Attorney Network FAQs" />
+          <div className="mt-6 text-center">
+            <a href="#attorney-form" className="inline-block bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-accent/90 transition-colors">Get Started</a>
+          </div>
         </div>
       </section>
 

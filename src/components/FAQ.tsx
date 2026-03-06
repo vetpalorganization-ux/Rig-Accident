@@ -22,6 +22,14 @@ const QUESTIONS: QA[] = [
     q: 'Can I choose my licensed states and volume pacing?',
     a: 'Yes. You can select states and adjust volume pacing so your team can respond quickly and consistently.',
   },
+  {
+    q: 'What types of inquiries will I receive?',
+    a: 'Commercial truck accident matters prioritized by severity and economic losses. Screening includes state, truck involvement, and brief facts.',
+  },
+  {
+    q: 'How are inquiries delivered?',
+    a: 'Direct phone or email handoffs. CRM integration can be discussed during onboarding based on your systems.',
+  },
 ];
 
 export default function FAQ({ headline = 'Frequently Asked Questions' }: { headline?: string }) {
