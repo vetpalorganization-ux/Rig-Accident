@@ -51,13 +51,13 @@ const FEATURES = [
 const HERO_VARIANTS = [
   {
     id: 'variant-a',
-    image: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2560&auto=format&fit=crop', // Large rig on highway
-    alt: 'Large commercial truck on the highway'
+    image: 'https://images.unsplash.com/photo-1529148532222-293c24360a2b?q=80&w=2560&auto=format&fit=crop',
+    alt: 'Large commercial truck driving on a highway'
   },
   {
     id: 'variant-b',
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2560&auto=format&fit=crop', // Big rig front view
-    alt: 'Professional view of a commercial semi-truck'
+    image: 'https://images.unsplash.com/photo-1578509321557-b08a9ed2a4b7?q=80&w=2560&auto=format&fit=crop',
+    alt: 'Front view of a large semi-truck on the road'
   }
 ];
 
@@ -161,8 +161,8 @@ export default function Home() {
         {/* Background Image for Calculator */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1592850634844-97112c44801e?q=80&w=2560&auto=format&fit=crop" 
-            alt="Truck accident emergency scene"
+            src="https://images.unsplash.com/photo-1614035030394-b6e5b01e0737?q=80&w=2560&auto=format&fit=crop" 
+            alt="Dramatic scene of a semi-truck accident with emergency responders"
             className="w-full h-full object-cover opacity-20"
             loading="lazy"
           />
@@ -216,8 +216,8 @@ export default function Home() {
         {/* Background Image for Trust Section */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1586191582151-f7263d082d3f?q=80&w=2560&auto=format&fit=crop" 
-            alt="Damaged commercial vehicle"
+            src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?q=80&w=2560&auto=format&fit=crop" 
+            alt="Professional responders at a commercial vehicle accident site"
             className="w-full h-full object-cover opacity-10"
             loading="lazy"
           />
