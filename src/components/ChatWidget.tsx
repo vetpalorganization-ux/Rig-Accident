@@ -233,15 +233,26 @@ export const ChatWidget = () => {
         <button
           onClick={handleOpen}
           aria-label="Open chat"
-          className="relative bg-primary text-white rounded-full shadow-2xl hover:scale-105 transition-transform border border-[#CCCCCC] w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center"
+          className="group relative bg-primary text-white shadow-2xl hover:scale-105 transition-transform border border-[#CCCCCC] flex items-center justify-center rounded-full w-14 h-14 sm:h-16 sm:w-auto sm:px-5"
           style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
         >
-          <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" aria-hidden="true"></span>
-          <span className="absolute inset-0 rounded-full bg-primary" aria-hidden="true"></span>
+          {/* Slower pulse with no pointer events */}
+          <span className="pointer-events-none absolute inset-0 rounded-full bg-primary/50 animate-[ping_3.5s_cubic-bezier(0,0,0.2,1)_infinite]" aria-hidden="true"></span>
+          <span className="pointer-events-none absolute inset-0 rounded-full bg-primary" aria-hidden="true"></span>
+
+          {/* Icon circle - always visible; left-aligned in pill on desktop */}
           <span className="relative z-10 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent text-primary font-bold">
             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
+          </span>
+
+          {/* Desktop-only label to form oval/pill; hidden on mobile */}
+          <span className="hidden sm:flex relative z-10 items-center ml-3 text-left">
+            <span className="flex flex-col leading-tight">
+              <span className="text-xs text-white/70 font-medium">Have questions?</span>
+              <span className="font-bold">Start Case Review</span>
+            </span>
           </span>
         </button>
       )}
