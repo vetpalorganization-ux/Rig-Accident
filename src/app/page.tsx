@@ -4,10 +4,9 @@ import { useState } from 'react';
 import LeadForm from "@/components/LeadForm";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import StickyContactBar from "@/components/StickyContactBar";
-import FloatingCallButton from "@/components/FloatingCallButton";
+import ChatWidget from "@/components/ChatWidget";
 import TrustBadges from "@/components/TrustBadges";
 import SettlementCalculator from "@/components/SettlementCalculator";
-import ChatWidget from "@/components/ChatWidget";
 import FeatureModal from "@/components/FeatureModal";
 import CookieConsent from "@/components/CookieConsent";
 import Link from 'next/link';
@@ -521,7 +520,6 @@ export default function Home() {
 
       {/* Floating Components */}
       <ChatWidget />
-      <FloatingCallButton />
       <ExitIntentPopup />
       <CookieConsent />
 
