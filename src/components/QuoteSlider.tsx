@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import FallbackImage from './FallbackImage';
 
 type Quote = {
   text: string;
@@ -15,24 +16,21 @@ const QUOTES: Quote[] = [
       'The intake quality has been excellent and aligned with our trucking docket. Our team appreciates the concise case summaries.',
     name: 'Partner, Regional PI Firm',
     role: 'Truck Accident Litigation',
-    photo:
-      'https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=256&auto=format&fit=crop',
+    photo: '/images/stock/quote-1.jpg',
   },
   {
     text:
       'Coverage targeting by state and case type made onboarding simple. We can scale volume when our capacity increases.',
     name: 'Intake Director, Multistate Firm',
     role: 'Operations',
-    photo:
-      'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=256&auto=format&fit=crop',
+    photo: '/images/stock/quote-2.jpg',
   },
   {
     text:
       'Fast follow-ups and relevant inquiries. The screening process saves our staff time without sacrificing quality.',
     name: 'Lead Counsel',
     role: 'Commercial Vehicle Cases',
-    photo:
-      'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=256&auto=format&fit=crop',
+    photo: '/images/stock/quote-3.jpg',
   },
 ];
 
@@ -57,11 +55,12 @@ export default function QuoteSlider() {
         {QUOTES.map((q, i) => (
           <div key={i} className="min-w-full p-6 md:p-10">
             <div className="max-w-3xl mx-auto grid md:grid-cols-[120px_1fr] gap-6 items-center">
-              <img
+              <FallbackImage
                 src={q.photo}
                 alt={q.name}
+                width={112}
+                height={112}
                 className="w-24 h-24 md:w-28 md:h-28 rounded-xl object-cover border border-gray-200"
-                loading="lazy"
               />
               <div>
                 <p className="text-lg md:text-xl text-gray-900 leading-relaxed">“{q.text}”</p>

@@ -130,8 +130,8 @@ export default function LeadForm() {
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300 text-center">
             <label className="block text-lg font-bold text-gray-800">Were you injured in the accident?</label>
             <div className="grid grid-cols-2 gap-4 pt-4">
-              <button type="button" onClick={() => handleOptionClick('injured', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-[#333] hover:bg-gray-50">Yes</button>
-              <button type="button" onClick={() => handleOptionClick('injured', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-[#333] hover:bg-gray-50">No</button>
+              <button type="button" onClick={() => handleOptionClick('injured', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-800 text-gray-900 bg-white hover:bg-gray-50 hover:border-primary">Yes</button>
+              <button type="button" onClick={() => handleOptionClick('injured', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-800 text-gray-900 bg-white hover:bg-gray-50 hover:border-primary">No</button>
             </div>
           </div>
         )}
@@ -140,38 +140,38 @@ export default function LeadForm() {
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300 text-center">
             <label className="block text-lg font-bold text-gray-800">Did the accident involve a commercial truck or 18-wheeler?</label>
             <div className="grid grid-cols-1 gap-3 pt-4">
-              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-200 hover:border-primary">Yes</button>
-              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-200 hover:border-primary">No</button>
-              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'not_sure')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-200 hover:border-primary">Not Sure</button>
+              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'yes')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-800 text-gray-900 bg-white hover:bg-gray-50 hover:border-primary">Yes</button>
+              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'no')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-800 text-gray-900 bg-white hover:bg-gray-50 hover:border-primary">No</button>
+              <button type="button" onClick={() => handleOptionClick('commercial_truck', 'not_sure')} className="p-4 rounded-xl border-2 text-center font-bold transition-all border-gray-800 text-gray-900 bg-white hover:bg-gray-50 hover:border-primary">Not Sure</button>
             </div>
           </div>
         )}
 
         {step === 3 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-            <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">What state did the accident happen in?</label>
-            <input 
+            <label className="block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">What state did the accident happen in?</label>
+            <input
               required
               name="state"
               value={formData.state}
               onChange={handleChange}
               placeholder="Please enter the state (e.g., Texas, Florida)"
-              className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+              className="w-full border-2 border-gray-800 rounded-xl p-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-gray-900 placeholder:text-gray-600 bg-white"
             />
           </div>
         )}
 
         {step === 4 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-            <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Briefly describe the accident</label>
-            <textarea 
+            <label className="block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">Briefly describe the accident</label>
+            <textarea
               required
               name="description"
               value={formData.description}
               onChange={handleChange}
               placeholder="Please provide a brief description of what happened during the accident."
               rows={3}
-              className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+              className="w-full border-2 border-gray-800 rounded-xl p-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-gray-900 placeholder:text-gray-600 bg-white"
             />
           </div>
         )}
@@ -179,37 +179,37 @@ export default function LeadForm() {
         {step === 5 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Full Name</label>
-              <input 
+              <label className="block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">Full Name</label>
+              <input
                 required
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Please enter your full legal name"
-                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+                className="w-full border-2 border-gray-800 rounded-xl p-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-gray-900 placeholder:text-gray-600 bg-white"
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Phone Number</label>
-              <input 
+              <label className="block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">Phone Number</label>
+              <input
                 required
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Please enter your primary phone number"
-                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+                className="w-full border-2 border-gray-800 rounded-xl p-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-gray-900 placeholder:text-gray-600 bg-white"
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Email Address (Optional)</label>
-              <input 
+              <label className="block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">Email Address (Optional)</label>
+              <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Please enter your email address for correspondence"
-                className="w-full border border-black rounded-xl p-4 focus:border-primary focus:ring-0 transition-colors text-black placeholder:text-black"
+                className="w-full border-2 border-gray-800 rounded-xl p-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-gray-900 placeholder:text-gray-600 bg-white"
               />
             </div>
           </div>
@@ -225,20 +225,20 @@ export default function LeadForm() {
           </button>
           
           <div className="flex flex-col items-center space-y-4">
-            <div className="text-center text-[10px] text-gray-400 max-w-sm mx-auto leading-tight">
+            <div className="text-center text-[11px] text-gray-500 max-w-sm mx-auto leading-tight">
               <p className="font-bold mb-1">RigAccident.com is a lawyer matching service.</p>
               <p>We connect accident victims with independent attorneys. Consultations are free and confidential. We are not a law firm and do not provide legal advice.</p>
             </div>
 
             <div className="w-full pt-4 border-t border-gray-100">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex items-center space-x-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+              <div className="flex items-center justify-center gap-6">
+                <div className="flex items-center justify-center space-x-2 text-[11px] font-bold text-gray-600 uppercase tracking-tight whitespace-nowrap">
                   <svg className="w-3 h-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>No Fee Unless You Win</span>
+                  <span>Contingency Fee Attorneys</span>
                 </div>
-                <div className="flex items-center space-x-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+                <div className="flex items-center justify-center space-x-2 text-[11px] font-bold text-gray-600 uppercase tracking-tight whitespace-nowrap">
                   <svg className="w-3 h-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>

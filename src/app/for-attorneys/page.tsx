@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import FallbackImage from '@/components/FallbackImage';
 import { useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import FAQ from '@/components/FAQ';
@@ -74,8 +74,18 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </header>
 
-      <section className="bg-primary text-white pt-[164px] pb-[164px]">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative bg-primary text-white pt-[164px] pb-[164px] overflow-hidden">
+        <div className="absolute inset-0">
+          <FallbackImage
+            src="/truck-accident-2.jpg"
+            alt="Attorney onboarding background"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-primary/80" />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <div className="inline-flex items-center space-x-2 bg-white/10 px-3 py-1 rounded-full mb-4">
             <span className="w-2 h-2 bg-accent rounded-full" />
             <span className="text-xs font-bold uppercase tracking-widest">For Law Firms</span>
@@ -89,13 +99,13 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-5 bg-white">
+      <section className="py-8 md:py-10 bg-slate-50 border-y border-slate-200">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
-                <Image
-                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+                <FallbackImage
+                  src="/images/stock/attorney-card-1.jpg"
                   alt="Pre-screened inquiry review"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -110,8 +120,8 @@ import StateGrid from '@/components/StateGrid';
             </div>
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
-                <Image
-                  src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop"
+                <FallbackImage
+                  src="/images/stock/attorney-card-2.jpg"
                   alt="Territory control"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -126,8 +136,8 @@ import StateGrid from '@/components/StateGrid';
             </div>
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
-                <Image
-                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop"
+                <FallbackImage
+                  src="/images/stock/attorney-card-3.jpg"
                   alt="No upfront fees"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -144,16 +154,16 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
 
-      <section className="py-5 bg-secondary">
+      <section className="py-8 md:py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <div className="grid md:grid-cols-2 gap-6 items-stretch">
-              <div className="space-y-3 text-left flex flex-col h-full">
-                <h3 className="font-bold text-xl text-gray-900">Why Top Firms Join Our Network</h3>
-                <p className="text-gray-700 text-sm">
+              <div className="space-y-4 md:space-y-5 text-left flex flex-col h-full">
+                <h3 className="font-bold text-2xl md:text-3xl text-gray-900">Why Top Firms Join Our Network</h3>
+                <p className="text-gray-700 text-base md:text-lg leading-relaxed">
                   Pre‑screened truck‑accident inquiries matched to your licensed states. We verify key facts (truck involvement, severity, economic losses) so your team focuses on qualified conversations. No upfront fees, flexible pacing, and fast 24‑hour callbacks. Trusted by regional and multistate firms seeking consistent, high‑quality case opportunities.
                 </p>
-                <ol className="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+                <ol className="list-decimal pl-5 space-y-2 text-base md:text-lg text-gray-700 leading-7 md:leading-8">
                   <li>Apply with firm details and practice focus</li>
                   <li>Verify licensing, routing, and capacity</li>
                   <li>Go live with targeted coverage</li>
@@ -175,7 +185,7 @@ import StateGrid from '@/components/StateGrid';
 
       {/* Removed slider section per request to streamline content */}
 
-      <section className="py-5 bg-secondary">
+      <section className="py-8 md:py-10 bg-slate-50 border-y border-slate-200">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
@@ -202,7 +212,7 @@ import StateGrid from '@/components/StateGrid';
         </div>
       </section>
  
-      <section className="py-5 bg-white">
+      <section className="py-8 md:py-10 bg-white">
          <div className="container mx-auto px-4">
           {status === 'success' ? (
              <div className="max-w-2xl mx-auto bg-green-50 border border-green-100 p-8 rounded-2xl text-center">
@@ -213,15 +223,9 @@ import StateGrid from '@/components/StateGrid';
               </p>
              </div>
            ) : (
-            <div id="attorney-form" className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-              <div className="hidden md:block relative w-full h-full min-h-[360px]">
-                <Image
-                  src="https://images.unsplash.com/photo-1496268280706-ec91c5e133c9?q=80&w=1200&auto=format&fit=crop"
-                  alt="Attorney onboarding"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover rounded-2xl border border-gray-200"
-                />
+            <div id="attorney-form" className="w-full grid lg:grid-cols-2 gap-6 items-stretch">
+              <div className="bg-slate-50 border border-gray-200 rounded-2xl p-6 md:p-8 h-full">
+                <FAQ headline="Attorney Network FAQs" />
               </div>
               <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-6 h-full">
                 <div>
@@ -272,16 +276,19 @@ import StateGrid from '@/components/StateGrid';
             </div>
            )}
          </div>
-       </section>
+      </section>
 
-      {/* FAQ card grid section and its button removed per request */}
-
-      <section className="py-5 bg-white">
-        <div className="container mx-auto px-4">
-          <FAQ headline="Attorney Network FAQs" />
-          <div className="mt-6 text-center">
-            <a href="#attorney-form" className="inline-block bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-accent/90 transition-colors">Get Started</a>
-          </div>
+      <section className="bg-primary text-white py-10 border-t border-white/10">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-lg md:text-xl font-semibold">Ready to activate your firm profile?</p>
+          <p className="text-white/90 mt-2">Submit your details above and our team will contact you within 24 hours.</p>
+          <a
+            href="#attorney-form"
+            onClick={() => trackEvent('attorney_cta_click', { location: 'bottom_footer' })}
+            className="inline-block mt-6 bg-accent text-primary font-bold px-8 py-3 rounded-xl hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/60"
+          >
+            Request Network Access
+          </a>
         </div>
       </section>
 

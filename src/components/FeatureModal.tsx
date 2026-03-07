@@ -1,5 +1,7 @@
 'use client';
 
+import FallbackImage from './FallbackImage';
+
 type FeatureModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -33,7 +35,13 @@ export const FeatureModal = ({ isOpen, onClose, title, description, image, longD
         </button>
 
         <div className="relative h-48 sm:h-64 overflow-hidden">
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <FallbackImage
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, 768px"
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
           <div className="absolute bottom-6 left-6 text-white">
             <h2 className="text-3xl font-bold">{title}</h2>
