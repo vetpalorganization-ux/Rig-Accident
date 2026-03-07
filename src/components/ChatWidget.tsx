@@ -232,18 +232,17 @@ export const ChatWidget = () => {
       ) : (
         <button
           onClick={handleOpen}
-          className="bg-primary text-white p-4 rounded-full shadow-2xl flex items-center space-x-3 hover:scale-105 transition-all group border border-[#CCCCCC]"
+          aria-label="Open chat"
+          className="relative bg-primary text-white rounded-full shadow-2xl hover:scale-105 transition-transform border border-[#CCCCCC] w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center"
           style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
         >
-          <div className="bg-accent text-primary w-10 h-10 rounded-full flex items-center justify-center font-bold">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <span className="absolute inset-0 rounded-full bg-primary/60 animate-ping" aria-hidden="true"></span>
+          <span className="absolute inset-0 rounded-full bg-primary" aria-hidden="true"></span>
+          <span className="relative z-10 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent text-primary font-bold">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
-          </div>
-          <div className="text-left hidden sm:block">
-            <div className="text-xs text-white/70 font-medium">Have questions?</div>
-            <div className="font-bold">Start Case Review</div>
-          </div>
+          </span>
         </button>
       )}
     </div>
