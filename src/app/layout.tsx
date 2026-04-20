@@ -13,8 +13,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.rigaccident.com"),
   title: "Rig Accident Lawyer | Free Case Review",
   description: "Injured in a rig or oilfield accident? Speak with an experienced attorney today. Free consultation.",
+  openGraph: {
+    images: ["/images/stock/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/stock/og-image.png"],
+  },
 };
 
 export default function RootLayout({

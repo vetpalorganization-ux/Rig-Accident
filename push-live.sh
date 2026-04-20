@@ -268,16 +268,21 @@ fi
 
 log_section "Sensitive pattern scan"
 
+MATCHED_PATTERNS=()
 for pattern in "${SENSITIVE_PATTERNS[@]}"; do
   if git diff --staged | grep -Eqi "$pattern"; then
-    log_warn "Possible secret detected: $pattern"
-    read -r -p "Continue anyway? (y/N) " confirm
-    if [[ ! $confirm =~ ^[Yy]$ ]]; then
-      log_error "Push aborted"
-      exit 1
-    fi
+    MATCHED_PATTERNS+=("$pattern")
   fi
 done
+if [ ${#MATCHED_PATTERNS[@]} -gt 0 ]; then
+  log_warn "Possible secrets detected in staged diff:"
+  for p in "${MATCHED_PATTERNS[@]}"; do echo "  • $p"; done
+  read -r -p "Continue anyway? (y/N) " confirm
+  if [[ ! $confirm =~ ^[Yy]$ ]]; then
+    log_error "Push aborted"
+    exit 1
+  fi
+fi
 
 # Filenames scan (staged)
 STAGED_FILES=$(git diff --cached --name-only || true)
@@ -458,7 +463,7 @@ fi
 
 log_section "Deployment summary"
 
-git log -1 --stat
+git --no-pager log -1 --stat
 
 ########################################
 # Optional Release Notes
@@ -466,6 +471,6 @@ git log -1 --stat
 
 log_section "Release notes"
 
-git log -5 --pretty=format:"• %s"
+git --no-pager log -5 --pretty=format:"• %s"
 
 log_info "Deployment complete"

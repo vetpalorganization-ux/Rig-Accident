@@ -105,7 +105,7 @@ import StateGrid from '@/components/StateGrid';
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
                 <FallbackImage
-                  src="/images/stock/attorney-card-1.jpg"
+                  src="/images/stock/pre-screened-inquiries.png"
                   alt="Pre-screened inquiry review"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -121,7 +121,7 @@ import StateGrid from '@/components/StateGrid';
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
                 <FallbackImage
-                  src="/images/stock/attorney-card-2.jpg"
+                  src="/images/stock/contract.jpg"
                   alt="Territory control"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -137,7 +137,7 @@ import StateGrid from '@/components/StateGrid';
             <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-lg">
               <div className="relative w-full h-36">
                 <FallbackImage
-                  src="/images/stock/attorney-card-3.jpg"
+                  src="/images/stock/no-up-front-costs.png"
                   alt="No upfront fees"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"

@@ -16,21 +16,21 @@ const QUOTES: Quote[] = [
       'The intake quality has been excellent and aligned with our trucking docket. Our team appreciates the concise case summaries.',
     name: 'Partner, Regional PI Firm',
     role: 'Truck Accident Litigation',
-    photo: '/images/stock/quote-1.jpg',
+    photo: '/images/stock/experienced-lawyers.png',
   },
   {
     text:
       'Coverage targeting by state and case type made onboarding simple. We can scale volume when our capacity increases.',
     name: 'Intake Director, Multistate Firm',
     role: 'Operations',
-    photo: '/images/stock/quote-2.jpg',
+    photo: '/images/stock/pre-screened-inquiries.png',
   },
   {
     text:
       'Fast follow-ups and relevant inquiries. The screening process saves our staff time without sacrificing quality.',
     name: 'Lead Counsel',
     role: 'Commercial Vehicle Cases',
-    photo: '/images/stock/quote-3.jpg',
+    photo: '/images/stock/no-up-front-costs.png',
   },
 ];
 

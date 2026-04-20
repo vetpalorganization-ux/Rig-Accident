@@ -16,7 +16,7 @@ const FEATURES = [
   {
     title: 'Experienced Lawyers',
     desc: 'We only match you with attorneys who have a proven track record in truck accident cases.',
-    image: '/images/stock/feature-experienced-lawyers.jpg',
+    image: '/images/stock/experienced-lawyers.png',
     longDesc: 'Our network consists exclusively of attorneys who specialize in commercial vehicle litigation. These firms have the resources to take on large trucking corporations and their insurance providers.\n\nWhen you are matched through our system, you can be confident that your legal representative understands the complexities of federal trucking regulations, FMCSA compliance requirements, and the strategies needed to build strong cases against commercial carriers.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -27,7 +27,7 @@ const FEATURES = [
   {
     title: 'No Upfront Cost',
     desc: 'Your consultation is free, and you pay nothing unless your lawyer wins your case.',
-    image: '/images/stock/feature-no-upfront-cost.jpg',
+    image: '/images/stock/no-up-front-costs.png',
     longDesc: 'The attorneys in our network typically work on a contingency fee basis, meaning they only collect a fee if they recover compensation for you.\n\nThis arrangement allows accident victims to pursue justice without paying upfront legal costs. Specific fee arrangements vary by attorney and will be discussed during your free consultation.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,7 @@ const FEATURES = [
   {
     title: 'Fast Case Review',
     desc: 'Our system prioritizes serious accidents for immediate review by legal specialists.',
-    image: '/images/stock/feature-fast-review.jpg',
+    image: '/images/stock/fast-case-review.png',
     longDesc: 'Time is of the essence in truck accident cases. Evidence can disappear quickly, and black box data must be preserved immediately.\n\nOur matching system is designed for speed. Once you submit your details, our automation engine prioritizes high-impact cases for instant notification to available attorneys. Most users receive a call back within minutes to begin their free legal evaluation.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,7 +149,7 @@ export default function Home() {
         {/* Background Image for Calculator */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/stock/calculator-bg.jpg"
+            src="/images/stock/og-image.png"
             alt="Dramatic scene of a semi-truck accident with emergency responders"
             fill
             sizes="100vw"
