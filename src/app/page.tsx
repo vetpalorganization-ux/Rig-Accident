@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import LeadForm from "@/components/LeadForm";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
 import StickyContactBar from "@/components/StickyContactBar";
 import ChatWidget from "@/components/ChatWidget";
 import TrustBadges from "@/components/TrustBadges";
@@ -17,6 +16,7 @@ const FEATURES = [
     title: 'Experienced Lawyers',
     desc: 'We only match you with attorneys who have a proven track record in truck accident cases.',
     image: '/images/stock/experienced-lawyers.png',
+    imagePosition: 'center 16%',
     longDesc: 'Our network consists exclusively of attorneys who specialize in commercial vehicle litigation. These firms have the resources to take on large trucking corporations and their insurance providers.\n\nWhen you are matched through our system, you can be confident that your legal representative understands the complexities of federal trucking regulations, FMCSA compliance requirements, and the strategies needed to build strong cases against commercial carriers.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,6 +28,7 @@ const FEATURES = [
     title: 'No Upfront Cost',
     desc: 'Your consultation is free, and you pay nothing unless your lawyer wins your case.',
     image: '/images/stock/no-up-front-costs.png',
+    imagePosition: 'center 14%',
     longDesc: 'The attorneys in our network typically work on a contingency fee basis, meaning they only collect a fee if they recover compensation for you.\n\nThis arrangement allows accident victims to pursue justice without paying upfront legal costs. Specific fee arrangements vary by attorney and will be discussed during your free consultation.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,6 +40,7 @@ const FEATURES = [
     title: 'Fast Case Review',
     desc: 'Our system prioritizes serious accidents for immediate review by legal specialists.',
     image: '/images/stock/fast-case-review.png',
+    imagePosition: 'center 15%',
     longDesc: 'Time is of the essence in truck accident cases. Evidence can disappear quickly, and black box data must be preserved immediately.\n\nOur matching system is designed for speed. Once you submit your details, our automation engine prioritizes high-impact cases for instant notification to available attorneys. Most users receive a call back within minutes to begin their free legal evaluation.',
     icon: (
       <svg className="w-12 h-12 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -233,6 +235,7 @@ export default function Home() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    style={{ objectPosition: feature.imagePosition }}
                     priority={false}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
@@ -520,7 +523,6 @@ export default function Home() {
 
       {/* Floating Components */}
       <ChatWidget />
-      <ExitIntentPopup />
       <CookieConsent />
 
       {/* Mobile CTA (Hidden on Desktop) */}

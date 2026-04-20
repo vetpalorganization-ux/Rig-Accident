@@ -110,6 +110,7 @@ import StateGrid from '@/components/StateGrid';
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
+                  style={{ objectPosition: 'center 15%' }}
                 />
               </div>
               <div className="p-6">
@@ -126,6 +127,7 @@ import StateGrid from '@/components/StateGrid';
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
+                  style={{ objectPosition: 'center 22%' }}
                 />
               </div>
               <div className="p-6">
@@ -142,6 +144,7 @@ import StateGrid from '@/components/StateGrid';
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
+                  style={{ objectPosition: 'center 16%' }}
                 />
               </div>
               <div className="p-6">
